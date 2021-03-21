@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 // Schema
 const Schema = mongoose.Schema;
@@ -41,17 +42,15 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.methods.isValidPassword = function (candidatePassword, callback) {
-  // Since we used path('password') now password is no longer a simple string, but an object, to access its value we can:
-  // bcrypt.compareSync(candidatePassword, this.get('password'))
-  bcrypt.compare(
-    candidatePassword,
-    this.password.toObject(),
-    function (err, isMatch) {
-      if (err) return callback(err);
-      callback(null, isMatch);
-    }
-  );
+UserSchema.methods.SaltGenerator = () => {
+  const saltRounds = Math.floor(Math.random() * 50 + 1);
+  const salt = bcrypt.genSaltSync(saltRounds);
+  return salt;
+};
+
+UserSchema.methods.isValidPassword = (candidatePassword) => {
+  const passwordHash = bcrypt.hashSync(candidatePassword, salt);
+  return passwordHash;
 };
 
 // Model
