@@ -1,9 +1,13 @@
 const User = require("../models/user.model");
 
 exports.register = function (req, res, next) {
+  const isEmpty = (err) => {
+    return [...Object.keys(err)].length;
+  };
   // validations
 
   const errors = {};
+  console.log(req);
   const email = req.body.email;
   const password = req.body.password;
   const userName = req.body.username;

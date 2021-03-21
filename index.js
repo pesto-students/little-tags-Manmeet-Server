@@ -6,7 +6,7 @@ const winston = require("winston");
 const mongoose = require("mongoose");
 const createError = require("http-errors");
 // const connectDB = require("./config/mongodb.config");
-
+const db = process.env.MONGODB_URI || config.get("MONGODB_URI");
 const port = process.env.PORT || config.get("port");
 
 const usersRouter = require("./app/routes/user.routes");
