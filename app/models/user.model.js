@@ -49,6 +49,7 @@ UserSchema.methods.SaltGenerator = () => {
 };
 
 UserSchema.methods.isValidPassword = (candidatePassword) => {
+  const salt = UserSchema.methods.SaltGenerator();
   const passwordHash = bcrypt.hashSync(candidatePassword, salt);
   return passwordHash;
 };
