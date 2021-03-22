@@ -1,28 +1,50 @@
 const User = require("../models/user.model");
+const utils = require("../utils/utils.js");
 const bcrypt = require("bcrypt");
-exports.register = function (req, res, next) {
+
+exports.login = async function (req, res) {
+  try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      res
+        .status(400)
+        .json({ status: false, full_messages: "User doesn't match" });
+    }
+
+    const userLogin = await User.findOne({ email: email });
+
+    if (userLogin) {
+      const isMatch = await bcrypt.compare(password, userLogin.passwordHash);
+      if (!isMatch) {
+        res
+          .status(400)
+          .json({ status: false, full_messages: "Invalid Credentials" });
+      } else {
+        res.status(202).json({
+          success: true,
+          full_messages: "User Signed In successfully",
+        });
+      }
+    } else {
+      res
+        .status(400)
+        .json({ status: false, full_messages: "Invalid Credentials" });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+exports.register = async function (req, res) {
   const isEmpty = (err) => {
     return [...Object.keys(err)].length === 0;
-  };
-
-  const saltGenerator = () => {
-    const saltRounds = Math.floor(Math.random() * 10 + 1);
-    const salt = bcrypt.genSaltSync(saltRounds);
-    return salt;
-  };
-
-  const passwordGenerator = (candidatePassword, salt) => {
-    const passwordHash = bcrypt.hashSync(candidatePassword, salt);
-    return passwordHash;
   };
   // validations
 
   const errors = {};
   console.log(req.body);
-  const email = req.body.email;
-  const password = req.body.password;
-  const userName = req.body.userName;
-  const phoneNumber = req.body.phoneNumber;
+  const { email, password, userName, phoneNumber } = req.body;
 
   // validate form
   if (!userName || userName.trim() === "")
@@ -36,60 +58,31 @@ exports.register = function (req, res, next) {
   if (!isEmpty(errors)) {
     return res.status(422).json({ success: false, errors });
   }
-  // return res.send("success");
-  return User.findOne({
-    email: { $eq: email },
-    function(err, obj) {
-      if (obj) {
-        errors.email = "Email id don";
-      }
-    },
-  })
-    .then((user) => {
-      if (user !== null) {
-        // If the user exists, return Error
-        if (user.email === email)
-          errors.email = "Email: " + email + " is already taken";
 
-        if (!isEmpty(errors)) {
-          return res.status(403).json({ success: false, errors });
-        }
+  try {
+    const userExist = await User.findOne({ email: email });
+    if (userExist) {
+      errors.email = "Email: " + email + " is already taken";
+      if (!isEmpty(errors)) {
+        return res.status(422).json({ success: false, errors });
       }
-      // const method = new User().methods;
-      const randomSalt = saltGenerator();
-      const passwordHash = passwordGenerator(password, randomSalt);
-      user = new User({
-        email: email,
-        userName: userName,
-        randomSalt: randomSalt,
-        passwordHash: passwordHash,
-        phoneNumber: phoneNumber,
-      });
-      console.log(user);
-      user
-        .save()
-        .then((user) => {
-          if (user) {
-            console.dir(user);
-            console.log(user.toJSON());
-            res.json({
-              success: true,
-              full_messages: "User registered Successfully",
-            });
-          } else {
-            console.log("user is empty ...???");
-            res.json({ success: true, full_messages: "something went wrong" });
-          }
-        })
-        .catch((err) => {
-          throw err;
-        });
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).json({
-        success: false,
-        full_messages: err,
-      });
+    }
+    const randomSalt = utils.saltGenerator();
+    const passwordHash = utils.passwordGenerator(password, randomSalt);
+
+    const user = new User({
+      email,
+      userName,
+      phoneNumber,
+      randomSalt,
+      passwordHash,
     });
+
+    await user.save();
+    res
+      .status(201)
+      .json({ success: true, full_messages: "User registered Successfully" });
+  } catch (err) {
+    console.log(err);
+  }
 };
