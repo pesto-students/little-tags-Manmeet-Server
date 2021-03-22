@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-
+const jwt = require("jsonwebtoken");
+const config = require("config");
 // Schema
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
@@ -21,7 +21,7 @@ const UserSchema = new Schema({
   userName: {
     type: String,
     required: [true, "can't be blank"],
-    match: [/^[a-zA-Z]+$/, "is invalid"],
+    match: [/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/, "is invalid"],
   },
   randomSalt: {
     type: String,
@@ -40,19 +40,28 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
-// UserSchema.methods.SaltGenerator = () => {
-//   const saltRounds = Math.floor(Math.random() * 50 + 1);
-//   const salt = bcrypt.genSaltSync(saltRounds);
-//   return salt;
-// };
-
-// UserSchema.methods.isValidPassword = (candidatePassword) => {
-//   const salt = UserSchema.methods.SaltGenerator();
-//   const passwordHash = bcrypt.hashSync(candidatePassword, salt);
-//   return passwordHash;
-// };
+// generating token
+UserSchema.methods.generateAuthToken = async function () {
+  try {
+    const SECRET_KEY = config.get("SECRET_KEY");
+    const token = jwt.sign({ _id: this._id }, SECRET_KEY);
+    this.tokens = this.tokens.concat({ token: token });
+    await this.save();
+    return token;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 // Model
 const User = mongoose.model("User", UserSchema);
