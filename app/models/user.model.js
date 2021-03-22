@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   isGuest: {
     type: Boolean,
-    required: [true, "can't be blank"],
+    default: false,
   },
   dateCreated: {
     type: String,
@@ -42,17 +42,17 @@ const UserSchema = new Schema({
   },
 });
 
-UserSchema.methods.SaltGenerator = () => {
-  const saltRounds = Math.floor(Math.random() * 50 + 1);
-  const salt = bcrypt.genSaltSync(saltRounds);
-  return salt;
-};
+// UserSchema.methods.SaltGenerator = () => {
+//   const saltRounds = Math.floor(Math.random() * 50 + 1);
+//   const salt = bcrypt.genSaltSync(saltRounds);
+//   return salt;
+// };
 
-UserSchema.methods.isValidPassword = (candidatePassword) => {
-  const salt = UserSchema.methods.SaltGenerator();
-  const passwordHash = bcrypt.hashSync(candidatePassword, salt);
-  return passwordHash;
-};
+// UserSchema.methods.isValidPassword = (candidatePassword) => {
+//   const salt = UserSchema.methods.SaltGenerator();
+//   const passwordHash = bcrypt.hashSync(candidatePassword, salt);
+//   return passwordHash;
+// };
 
 // Model
 const User = mongoose.model("User", UserSchema);

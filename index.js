@@ -2,40 +2,32 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const config = require("config");
-const winston = require("winston");
-const mongoose = require("mongoose");
 const createError = require("http-errors");
-// const connectDB = require("./config/mongodb.config");
-const db = process.env.MONGODB_URI || config.get("MONGODB_URI");
-const port = process.env.PORT || config.get("port");
+const path = require("path");
+require("./app/DB/mongoDB.config");
 
-const usersRouter = require("./app/routes/user.routes");
+const userRoute = require("./app/routes/user.routes");
+
+const port = process.env.PORT || config.get("port");
 
 app.use(express.json());
 app.use(morgan("tiny"));
+app.use(express.urlencoded({ extended: false }));
+app.use(userRoute);
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(db, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-    });
-    // winston.info("Connected to Mongoose !!!");
-  } catch (error) {
-    winston.error(error.message, error);
-    process.exit(1);
-  }
-};
-connectDB();
+// const middleware = (req, res, next) => {
+//   console.log(`Hello my Middleware`);
+//   next();
+// };
 
-app.use("/api", usersRouter);
-
-// catch 404 and forward to error handler
-
-app.use(function (req, res, next) {
-  next(createError(404));
+app.get("/", (req, res) => {
+  res.send("Welcome to ShopKart");
 });
+
+// app.get("/about", middleware, (req, res) => {
+//   console.log(`Hello my About`);
+//   res.send(`Hello About world from the server`);
+// });
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
