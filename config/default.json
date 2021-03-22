@@ -1,4 +1,5 @@
 {
-  "port": "3000",
-  "MONGODB_URI": "mongodb://localhost:27017/shopKart"
+  "port": "4000",
+  "MONGODB_URI": "mongodb://localhost:27017/shopKart",
+  "SECRET_KEY": "lT5WkCYj6F,fPEtcn-3jKnF{es^1UHeCAMP.shtR8/0kf"
 }
