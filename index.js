@@ -4,12 +4,14 @@ const morgan = require("morgan");
 const config = require("config");
 const createError = require("http-errors");
 const path = require("path");
+const cors = require("cors");
 require("./app/DB/mongoDB.config");
 
 const userRoute = require("./app/routes/user.routes");
 
 const port = process.env.PORT || config.get("port");
 
+app.use(cors());
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
