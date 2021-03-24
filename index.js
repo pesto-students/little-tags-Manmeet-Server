@@ -8,7 +8,7 @@ const cors = require("cors");
 require("./app/DB/mongoDB.config");
 
 const userRoute = require("./app/routes/user.routes");
-
+const productRoute = require("./app/routes/product.routes");
 const port = process.env.PORT || config.get("port");
 
 app.use(cors());
@@ -16,6 +16,7 @@ app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
 app.use(userRoute);
+app.use("/product", productRoute);
 
 // const middleware = (req, res, next) => {
 //   console.log(`Hello my Middleware`);
