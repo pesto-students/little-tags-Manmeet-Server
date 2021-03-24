@@ -2,7 +2,7 @@ const User = require("../models/user.model");
 const utils = require("../utils/utils.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
+const config = require("config");
 exports.login = async function (req, res) {
   try {
     const { email, password } = req.body;
@@ -17,19 +17,22 @@ exports.login = async function (req, res) {
     if (userLogin) {
       const isMatch = await bcrypt.compare(password, userLogin.passwordHash);
       const token = await userLogin.generateAuthToken();
-      // console.log(token);
-      // res.cookie("jwtToken", token, { httpOnly: true });
       if (!isMatch) {
         res
           .status(400)
           .json({ status: false, full_messages: "Invalid Credentials" });
       } else {
-        res.status(202).json({
-          success: true,
-          full_messages: "User Signed In successfully",
-          userName: userLogin.userName,
-          token: token,
-        });
+        res
+          .status(202)
+          .cookie("access_token", "Bearer " + token, {
+            httpOnly: true,
+            expires: new Date(Date.now() + 8 * 3600000), // cookie will be removed after 8 hours
+          })
+          .json({
+            success: true,
+            full_messages: "User Signed In successfully",
+            userName: userLogin.userName,
+          });
       }
     } else {
       res
