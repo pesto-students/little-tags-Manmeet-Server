@@ -12,6 +12,7 @@ exports.passwordGenerator = function (candidatePassword, salt) {
   return passwordHash;
 };
 
+/* New User Validation */
 exports.registerValidator = () => {
   return [
     check("userName", "User Name is required").not().isEmpty(),
@@ -32,6 +33,7 @@ exports.registerValidator = () => {
   ];
 };
 
+/* Existing User Validation */
 exports.loginValidation = () => {
   return [
     check("email", "Email is required").not().isEmpty(),

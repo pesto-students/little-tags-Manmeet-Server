@@ -23,8 +23,8 @@ app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
 
 /* Route Path */
-app.use("/api/users", userRoute);
-app.use("/api/auth", authRoute);
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/auth", authRoute);
 
 /* home route */
 app.get("/", (req, res) => {
