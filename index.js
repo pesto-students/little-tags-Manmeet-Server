@@ -5,31 +5,31 @@ const config = require("config");
 const createError = require("http-errors");
 const path = require("path");
 const cors = require("cors");
+
+/* Start DB Connection */
 require("./app/DB/mongoDB.config");
 
+/* Routes */
 const userRoute = require("./app/routes/user.routes");
+const authRoute = require("./app/routes/auth.routes");
 
 const port = process.env.PORT || config.get("port");
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 app.use(cors());
-app.use(express.json());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
-app.use(userRoute);
 
-// const middleware = (req, res, next) => {
-//   console.log(`Hello my Middleware`);
-//   next();
-// };
+/* Route Path */
+app.use("/api/users", userRoute);
+app.use("/api/auth", authRoute);
 
+/* home route */
 app.get("/", (req, res) => {
   res.send("Welcome to ShopKart");
 });
-
-// app.get("/about", middleware, (req, res) => {
-//   console.log(`Hello my About`);
-//   res.send(`Hello About world from the server`);
-// });
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
