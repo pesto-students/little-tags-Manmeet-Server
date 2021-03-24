@@ -11,6 +11,7 @@ require("./app/DB/mongoDB.config");
 
 /* Routes */
 const userRoute = require("./app/routes/user.routes");
+const productRoute = require("./app/routes/product.routes");
 const authRoute = require("./app/routes/auth.routes");
 
 const port = process.env.PORT || config.get("port");
@@ -22,9 +23,11 @@ app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
 
+
 /* Route Path */
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
+app.use("/product", productRoute);
 
 /* home route */
 app.get("/", (req, res) => {
