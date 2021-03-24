@@ -11,6 +11,6 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
-    console.log(`connection successful`);
+    console.log(`DB connection successful`);
   })
   .catch((err) => console.log(`no connection`));

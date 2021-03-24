@@ -40,26 +40,16 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
 });
 
-// generating token
+// generate token
 UserSchema.methods.generateAuthToken = async function () {
   try {
     const SECRET_KEY = config.get("SECRET_KEY");
     const token = jwt.sign({ _id: this._id }, SECRET_KEY);
-    this.tokens = this.tokens.concat({ token: token });
-    await this.save();
     return token;
   } catch (err) {
-    console.log(err);
+    console.error(err.message);
   }
 };
 
