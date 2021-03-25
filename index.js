@@ -1,4 +1,5 @@
 const express = require("express");
+const expressLayouts = require("express-ejs-layouts");
 const app = express();
 const morgan = require("morgan");
 const config = require("config");
@@ -22,16 +23,26 @@ app.use(express.json({ extended: false }));
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
-app.set("view engine", "ejs"); // set up ejs for templating
+
+// Set Templating Engine
+app.use(expressLayouts);
+app.set("layout", "./layouts/full-width");
+app.set("view engine", "ejs");
 
 /* Route Path */
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
-app.use("/product", productRoute);
+app.use("/api/v1/product", productRoute);
 
 /* home route */
 app.get("/", (req, res) => {
-  res.render("login.ejs", (message = { login: "login" }));
+  res.render("dashboard", (message = { login: "login" }));
+});
+app.get("/login", (req, res) => {
+  res.render("login", { layout: "./layouts/loginLayout" });
+});
+app.get("/product", (req, res) => {
+  res.render("product");
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
