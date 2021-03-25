@@ -22,7 +22,7 @@ app.use(express.json({ extended: false }));
 app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
-
+app.set("view engine", "ejs"); // set up ejs for templating
 
 /* Route Path */
 app.use("/api/v1/users", userRoute);
@@ -31,7 +31,7 @@ app.use("/product", productRoute);
 
 /* home route */
 app.get("/", (req, res) => {
-  res.send("Welcome to ShopKart");
+  res.render("login.ejs", (message = { login: "login" }));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
