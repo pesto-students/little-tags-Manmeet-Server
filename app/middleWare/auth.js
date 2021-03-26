@@ -3,7 +3,7 @@ const config = require("config");
 
 module.exports = (req, res, next) => {
   // Get the token from header;
-  const token = req.header("x-auth-token");
+  const token = req.header("authorization");
   const SECRET_KEY = config.get("SECRET_KEY");
   if (!token) {
     return res.status(401).json({
@@ -11,7 +11,6 @@ module.exports = (req, res, next) => {
       full_messages: "Access denied: No token authorization",
     });
   }
-
   // Verify token
   try {
     jwt.verify(token, SECRET_KEY, (error, decoded) => {
@@ -26,7 +25,7 @@ module.exports = (req, res, next) => {
       }
     });
   } catch (err) {
-    console.error("something wrong with auth middleware");
+    console.error(err.message);
     res.status(500).json({ status: false, full_messages: "Server Error" });
   }
 };

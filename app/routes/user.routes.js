@@ -6,7 +6,7 @@ const UsersController = require("../controllers/users.controller");
 const { registerValidator } = require("../utils/utils");
 
 /**
- * @route   POST api/users
+ * @route   POST api/v1/users
  * @desc    Register User
  * @access  Public
  */

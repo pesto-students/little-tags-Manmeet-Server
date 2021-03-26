@@ -12,9 +12,11 @@ exports.register = async (req, res) => {
       .json({ status: false, full_messages: errors.array() });
   }
 
-  const { email, userName, password, phoneNumber } = req.body;
-
   try {
+    const { email, userName, password, phoneNumber, role } = req.body;
+    const randomSalt = saltGenerator();
+    const passwordHash = passwordGenerator(password, randomSalt);
+
     const userExist = await User.findOne({ email });
     if (userExist) {
       return res.status(422).json({
@@ -22,8 +24,6 @@ exports.register = async (req, res) => {
         errors: [{ full_messages: "User already exist" }],
       });
     }
-    const randomSalt = saltGenerator();
-    const passwordHash = passwordGenerator(password, randomSalt);
 
     const user = new User({
       email,
@@ -31,6 +31,7 @@ exports.register = async (req, res) => {
       phoneNumber,
       randomSalt,
       passwordHash,
+      role,
     });
     const token = await user.generateAuthToken();
     await user.save();

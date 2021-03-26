@@ -23,11 +23,10 @@ app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: false }));
 
-
 /* Route Path */
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
-app.use("/product", productRoute);
+app.use("/api/v1/product", productRoute);
 
 /* home route */
 app.get("/", (req, res) => {
