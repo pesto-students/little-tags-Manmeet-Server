@@ -2,12 +2,11 @@ const Product = require("../models/product.model");
 const User = require("../models/user.model");
 const { checkAdminRights } = require("../utils/utils");
 
-//! Completed
+// get all products detail
 exports.getProducts = async (req, res) => {
   try {
     const isAdminRights = await checkAdminRights(req.user);
     const products = await Product.find();
-
     if (!products) {
       return res
         .status(404)
@@ -18,8 +17,7 @@ exports.getProducts = async (req, res) => {
       const currentUserProducts = products.filter(
         (product) => product._userId == req.user._id
       );
-      console.log(currentUserProducts);
-      return res.status(200).json(currentUserProducts);
+      return res.status(206).json(currentUserProducts);
     }
     res.status(200).json(products);
   } catch (err) {
@@ -28,7 +26,7 @@ exports.getProducts = async (req, res) => {
   }
 };
 
-//! Completed
+// add a new product
 exports.addProduct = async (req, res) => {
   try {
     const {
@@ -51,7 +49,9 @@ exports.addProduct = async (req, res) => {
     });
     await newProduct
       .save()
-      .then(() => res.status(200).json("Product added!"))
+      .then(() =>
+        res.status(201).json({ status: true, full_messages: "Product added!" })
+      )
       .catch((err) =>
         res.status(500).json({ status: false, full_messages: "Server Error" })
       );
@@ -61,8 +61,15 @@ exports.addProduct = async (req, res) => {
   }
 };
 
+// get a product detail by id
 exports.productDetail = async (req, res) => {
   try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ status: false, full_messages: "No data found" });
+    }
     const isAdminRights = await checkAdminRights(req.user);
     if (!isAdminRights) {
       return res.status(401).json({
@@ -70,18 +77,15 @@ exports.productDetail = async (req, res) => {
         full_messages: "Access denied: Need Admin rights",
       });
     }
-    await Product.findById(req.params.id)
-      .then((product) => res.json(product))
-      .catch((err) => {
-        console.error(err.message);
-        res.status(500).json({ status: false, full_messages: "Server Error" });
-      });
-  } catch (error) {
+    res.status(202).json(product);
+  } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).json({ status: false, full_messages: "Server Error" });
   }
 };
 
+// delete a product by id from collections
+// get product detail
 exports.productDelete = async (req, res) => {
   try {
     const isAdminRights = await checkAdminRights(req.user);
@@ -91,37 +95,45 @@ exports.productDelete = async (req, res) => {
         full_messages: "Access denied: Need Admin rights",
       });
     }
-    await Product.findByIdAndDelete(req.params.id)
-      .then(() => res.json("Product deleted."))
-      .catch((err) =>
-        res.status(500).json({ status: false, full_messages: "Server Error" })
-      );
+    const product = await Product.findByIdAndDelete(req.params.id);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ status: false, full_messages: "No data found" });
+    }
+    res.status(200).json({ status: false, full_messages: "Product deleted." });
   } catch (error) {
     console.log(error.message);
     res.status(500).json({ status: false, full_messages: "Server Error" });
   }
 };
 
+// update(put) a product by id
 exports.productUpdate = async (req, res) => {
-  const isAdminRights = await checkAdminRights(req.user);
-  if (!isAdminRights) {
-    return res.status(401).json({
-      status: false,
-      full_messages: "Access denied: Need Admin rights",
-    });
+  try {
+    const isAdminRights = await checkAdminRights(req.user);
+    if (!isAdminRights) {
+      return res.status(401).json({
+        status: false,
+        full_messages: "Access denied: Need Admin rights",
+      });
+    }
+
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return res
+        .status(404)
+        .json({ status: false, full_messages: "No data found" });
+    }
+    product.title = req.body.title;
+    product.price = req.body.price;
+    product.description = req.body.description;
+    product.image = req.body.image;
+    product.categoryName = req.body.categoryName;
+    await product.save();
+    res.status(201).json({ status: true, full_messages: "Product Updated" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ status: false, full_messages: "Server Error" });
   }
-  await Product.findById(req.params.id)
-    .then((product) => {
-      product.title = req.body.title;
-      product.price = req.body.price;
-      product.description = req.body.description;
-      product.image = req.body.image;
-      product.categoryName = req.body.categoryName;
-      product.date = Date.now();
-      product
-        .save()
-        .then(() => res.json("Product updated!"))
-        .catch((err) => res.status(400).json("Error: " + err));
-    })
-    .catch((err) => res.status(400).json("Error: " + err));
 };
