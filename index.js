@@ -6,7 +6,7 @@ const config = require("config");
 const createError = require("http-errors");
 const path = require("path");
 const cors = require("cors");
-
+const fetch = require("node-fetch");
 /* Start DB Connection */
 require("./app/DB/mongoDB.config");
 
@@ -34,15 +34,58 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 
-/* home route */
-app.get("/", (req, res) => {
-  res.render("dashboard", (message = { login: "login" }));
+const url = require("url");
+const products = require("./app/controllers/product.controller");
+/* admin route */
+app.get("/", async (req, res) => {
+  // for testing purpose only
+  if (true) {
+    let products = await fetch("http://localhost:4000/api/v1/product")
+      .then((r) => r.json())
+      .then((res) => {
+        return res;
+      });
+    res.render(
+      "dashboard",
+      ((message = "Welcome to shopcart"),
+      (items = products),
+      (pageName = {
+        pageName: "Dashboard",
+      }))
+    );
+  } else {
+    res.redirect("/login");
+  }
 });
+
 app.get("/login", (req, res) => {
   res.render("login", { layout: "./layouts/loginLayout" });
 });
-app.get("/product", (req, res) => {
-  res.render("product");
+app.post("/login", (req, res, next) => {
+  console.log(req.body);
+  res.redirect(
+    url.format({
+      pathname: "/",
+      query: {
+        loggedIn: true,
+      },
+    })
+  );
+});
+app.get("/product", async (req, res) => {
+  let products = await fetch("http://localhost:4000/api/v1/product")
+    .then((r) => r.json())
+    .then((res) => {
+      return res;
+    });
+  res.render(
+    "product",
+    ((message = ""),
+    (items = products),
+    (pageName = {
+      pageName: "Product",
+    }))
+  );
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
