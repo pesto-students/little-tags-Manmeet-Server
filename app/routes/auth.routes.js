@@ -9,14 +9,14 @@ const { loginValidation } = require("../utils/utils");
 const UsersController = require("../controllers/users.controller");
 const authController = require("../controllers/auth.controller");
 /**
- * @route   GET api/auth
+ * @route   GET api/v1/auth
  * @desc    Get user details by token
  * @access  Private
  */
 router.get("/", auth, authController.auth);
 
 /**
- * @route   POST api/users
+ * @route   POST api/v1/auth
  * @desc    Authenticate User and get token
  * @access  Public
  */

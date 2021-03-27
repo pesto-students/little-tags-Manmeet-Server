@@ -1,8 +1,9 @@
 const bcrypt = require("bcrypt");
 const { check, validationResult } = require("express-validator");
-
+const config = require("config");
+const User = require("../models/user.model");
 exports.saltGenerator = function () {
-  const saltRounds = Math.floor(Math.random() * 10 + 1);
+  const saltRounds = config.get("SALT_ROUND");
   const salt = bcrypt.genSaltSync(saltRounds);
   return salt;
 };
@@ -39,4 +40,11 @@ exports.loginValidation = () => {
     check("email", "Email is required").not().isEmpty(),
     check("password", "Password is required").exists(),
   ];
+};
+
+exports.checkAdminRights = async (user) => {
+  const userData = await User.findById(user);
+  const { role } = userData;
+  if (role === "Normal") return false;
+  return true;
 };
