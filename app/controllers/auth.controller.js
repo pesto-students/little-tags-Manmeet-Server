@@ -19,7 +19,7 @@ exports.login = async (req, res) => {
 
     if (!userLogin) {
       return res
-        .status(400)
+        .status(401)
         .json({ status: false, full_messages: "Invalid Credentials" });
     }
 
@@ -27,10 +27,9 @@ exports.login = async (req, res) => {
 
     if (!isMatch) {
       return res
-        .status(400)
+        .status(401)
         .json({ status: false, full_messages: "Invalid Credentials" });
     }
-    const user = new User();
     const token = await userLogin.generateAuthToken();
     res.status(201).json({ token });
   } catch (err) {
@@ -43,7 +42,6 @@ exports.login = async (req, res) => {
 exports.auth = async (req, res) => {
   try {
     const user = await User.findById(req.user);
-    console.log(req.user);
     const {
       userName,
       email,
@@ -52,7 +50,9 @@ exports.auth = async (req, res) => {
       isThirdPartyAuth,
       dateCreated,
     } = user;
-    res.json({ userName, email, phoneNumber, isGuest, isThirdPartyAuth });
+    res
+      .status(201)
+      .json({ userName, email, phoneNumber, isGuest, isThirdPartyAuth });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

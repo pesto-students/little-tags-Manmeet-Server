@@ -3,6 +3,10 @@ const mongoose = require("mongoose");
 // Schema
 const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
+  _userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
   title: {
     type: String,
     required: true,
@@ -16,16 +20,12 @@ const ProductSchema = new Schema({
     required: false,
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type: String,
+    required: false,
   },
   categoryName: {
     type: String,
     required: true,
-  },
-  date: {
-    type: String,
-    default: Date.now(),
   },
 });
 
