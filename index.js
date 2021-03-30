@@ -66,6 +66,7 @@ app.get("/", async (req, res) => {
     const authURI = URL + "api/v1/auth";
     // check login auth for token
     const { token } = req.cookies;
+    console.log(token);
     if (token) {
       const dataResponse = await fetch(`${authURI}`, {
         headers: {
