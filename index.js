@@ -9,7 +9,6 @@ const cors = require("cors");
 const fetch = require("node-fetch");
 /* Start DB Connection */
 require("./app/DB/mongoDB.config");
-const localURL = "http://localhost:4000/";
 /* Routes */
 const userRoute = require("./app/routes/user.routes");
 const productRoute = require("./app/routes/product.routes");
@@ -17,7 +16,7 @@ const authRoute = require("./app/routes/auth.routes");
 const { checkAuth } = require("./app/utils/utils");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT || config.get("port");
-
+const URL = process.env.URL || config.get("URL");
 // Init Middleware
 app.use(express.json({ extended: false }));
 
@@ -36,7 +35,6 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 
 const url = require("url");
-const URL = localURL || config.get("productionURL");
 /* admin route */
 // dashboard
 
