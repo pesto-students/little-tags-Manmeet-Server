@@ -34,18 +34,32 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 
-
 const url = require("url");
-const products = require("./app/controllers/product.controller");
 /* admin route */
+// dashboard
+
+// testing
+const token =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDU4YTUyNjhjM2ZiMDViNjRiNGNhMDciLCJpYXQiOjE2MTY5NTUwNjd9.RVJvLYwh5eJmOI478N7qZ-8j75bslqkGW8cQrj9mJ0M";
+
+// product
+const getData = async () => {
+  return await fetch("http://localhost:4000/api/v1/product", {
+    headers: {
+      "Content-Type": "application/json",
+      authorization: token,
+    },
+  })
+    .then((r) => r.json())
+    .then((res) => {
+      return res;
+    });
+};
+
 app.get("/", async (req, res) => {
   // for testing purpose only
   if (true) {
-    let products = await fetch("http://localhost:4000/api/v1/product")
-      .then((r) => r.json())
-      .then((res) => {
-        return res;
-      });
+    const products = await getData();
     res.render(
       "dashboard",
       ((message = "Welcome to shopcart"),
@@ -59,6 +73,7 @@ app.get("/", async (req, res) => {
   }
 });
 
+// login
 app.get("/login", (req, res) => {
   res.render("login", { layout: "./layouts/loginLayout" });
 });
@@ -73,12 +88,9 @@ app.post("/login", (req, res, next) => {
     })
   );
 });
+
 app.get("/product", async (req, res) => {
-  let products = await fetch("http://localhost:4000/api/v1/product")
-    .then((r) => r.json())
-    .then((res) => {
-      return res;
-    });
+  const products = await getData();
   res.render(
     "product",
     ((message = ""),
@@ -87,6 +99,41 @@ app.get("/product", async (req, res) => {
       pageName: "Product",
     }))
   );
+});
+
+app.post("/product", async (req, res) => {
+  await fetch("http://localhost:4000/api/v1/product", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: token,
+    },
+    body: JSON.stringify(req.body),
+  })
+    .then((r) => r.json())
+    .then(async (result) => {
+      const products = await getData();
+      if (result.status) {
+        res.render(
+          "product",
+          ((message = result.full_messages),
+          (items = products),
+          (pageName = {
+            pageName: "Product",
+          }))
+        );
+      } else {
+        res.render(
+          "product",
+          ((message = result.full_messages),
+          (items = products),
+          (pageName = {
+            pageName: "Product",
+          }))
+        );
+      }
+    })
+    .catch((e) => console.log(e));
 });
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
