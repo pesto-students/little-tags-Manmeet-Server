@@ -141,6 +141,12 @@ app.get("/product", async (req, res) => {
   try {
     const { token } = req.cookies;
     const products = await getProductData(token);
+    products.forEach((product) => {
+      product.description =
+        product.description.length > 80
+          ? product.description.substr(0, 81).concat("...")
+          : product.description;
+    });
     res.render(
       "product",
       ((message = ""),
@@ -149,7 +155,7 @@ app.get("/product", async (req, res) => {
         pageName: "Product",
       }))
     );
-  } catch (error) {
+  } catch (err) {
     // Todo
     // Display error message
     console.error(err.message);
