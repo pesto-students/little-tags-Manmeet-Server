@@ -16,7 +16,10 @@ const authRoute = require("./app/routes/auth.routes");
 const { checkAuth } = require("./app/utils/utils");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT || config.get("port");
+const methodOverride = require("method-override");
+app.use(methodOverride("_method"));
 const URL = process.env.URL || config.get("URL");
+
 // Init Middleware
 app.use(express.json({ extended: false }));
 
@@ -172,6 +175,37 @@ app.post("/product", async (req, res) => {
         authorization: token,
       },
       body: JSON.stringify(req.body),
+    })
+      .then((r) => r.json())
+      .then(async (result) => {
+        const products = await getProductData(token);
+        res.render(
+          "product",
+          ((message = result.full_messages),
+          (items = products),
+          (pageName = {
+            pageName: "Product",
+          }))
+        );
+      })
+      .catch((e) => console.error(e.message));
+  } catch (error) {
+    console.error(err.message);
+    res.render("login", { layout: "./layouts/loginLayout" });
+  }
+});
+
+app.delete("/product/:id", async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const productURI = URL + "api/v1/product/" + req.params.id;
+    const { token } = req.cookies;
+    await fetch(`${productURI}`, {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
     })
       .then((r) => r.json())
       .then(async (result) => {
