@@ -9,7 +9,7 @@ const cors = require("cors");
 const fetch = require("node-fetch");
 /* Start DB Connection */
 require("./app/DB/mongoDB.config");
-
+const localURL = "http://localhost:4000/";
 /* Routes */
 const userRoute = require("./app/routes/user.routes");
 const productRoute = require("./app/routes/product.routes");
@@ -36,30 +36,38 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 
 const url = require("url");
+const URL = localURL || config.get("productionURL");
 /* admin route */
 // dashboard
 
 // testing
 // product
 const getProductData = async (token) => {
-  return await fetch("http://localhost:4000/api/v1/product", {
-    headers: {
-      "Content-Type": "application/json",
-      authorization: token,
-    },
-  })
-    .then((r) => r.json())
-    .then((res) => {
-      return res;
-    });
+  try {
+    const productURI = URL + "api/v1/product";
+    return await fetch(`${productURI}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        return res;
+      });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ status: false, full_messages: "Server Error" });
+  }
 };
 
 app.get("/", async (req, res) => {
   try {
+    const authURI = URL + "api/v1/auth";
     // check login auth for token
     const { token } = req.cookies;
     if (token) {
-      const dataResponse = await fetch("http://localhost:4000/api/v1/auth", {
+      const dataResponse = await fetch(`${authURI}`, {
         headers: {
           "Content-Type": "application/json",
           authorization: token,
@@ -95,7 +103,8 @@ app.get("/login", (req, res) => {
 //
 app.post("/login", async (req, res, next) => {
   try {
-    const fetchResult = await fetch("http://localhost:4000/api/v1/auth", {
+    const authURI = URL + "api/v1/auth";
+    const fetchResult = await fetch(`${authURI}`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -150,8 +159,9 @@ app.get("/product", async (req, res) => {
 
 app.post("/product", async (req, res) => {
   try {
+    const productURI = URL + "api/v1/product";
     const { token } = req.cookies;
-    await fetch("http://localhost:4000/api/v1/product", {
+    await fetch(`${productURI}`, {
       method: "post",
       headers: {
         "Content-Type": "application/json",

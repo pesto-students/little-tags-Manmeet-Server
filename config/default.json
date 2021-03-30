@@ -2,5 +2,6 @@
   "port": "4000",
   "MONGODB_URI": "mongodb://localhost:27017/shopKart",
   "SALT_ROUND": 13,
-  "SECRET_KEY": "lT5WkCYj6F,fPEtcn-3jKnF{es^1UHeCAMP.shtR8/0kf"
+  "SECRET_KEY": "lT5WkCYj6F,fPEtcn-3jKnF{es^1UHeCAMP.shtR8/0kf",
+  "productionURL": "shopkart-backend.herokuapp.com/"
 }
