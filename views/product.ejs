@@ -65,7 +65,8 @@
                                                 Edit</button>
                                                 <form method="post"
                                                     action="/product/<%= items[i]._id %>?_method=DELETE">
-                                                <button
+                                                    <button
+                                                    onclick="return confirm('Are you sure you want to delete this record?')"
                                                     class="capitalize px-6 py-2 font-semibold text-sm shadow-lg
                                                 rounded-lg bg-red-600 text-white hover:bg-red-700 focus:outline-none
                                                 focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2">
