@@ -9,7 +9,6 @@ const cors = require("cors");
 const fetch = require("node-fetch");
 /* Start DB Connection */
 require("./app/DB/mongoDB.config");
-const localURL = "http://localhost:4000/";
 /* Routes */
 const userRoute = require("./app/routes/user.routes");
 const productRoute = require("./app/routes/product.routes");
@@ -36,7 +35,7 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 
 const url = require("url");
-const URL = config.get("productionURL") || localURL;
+const URL = process.env.URL || config.get("URL");
 /* admin route */
 // dashboard
 
@@ -66,7 +65,6 @@ app.get("/", async (req, res) => {
     const authURI = URL + "api/v1/auth";
     // check login auth for token
     const { token } = req.cookies;
-    console.log(token);
     if (token) {
       const dataResponse = await fetch(`${authURI}`, {
         headers: {
