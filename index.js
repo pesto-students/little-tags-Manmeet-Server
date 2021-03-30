@@ -16,7 +16,7 @@ const authRoute = require("./app/routes/auth.routes");
 const { checkAuth } = require("./app/utils/utils");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT || config.get("port");
-
+const URL = process.env.URL || config.get("URL");
 // Init Middleware
 app.use(express.json({ extended: false }));
 
@@ -36,6 +36,7 @@ app.use("/api/v1/product", productRoute);
 
 const url = require("url");
 const URL = process.env.URL || config.get("URL");
+
 /* admin route */
 // dashboard
 
