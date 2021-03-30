@@ -36,7 +36,7 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 
 const url = require("url");
-const URL = localURL || config.get("productionURL");
+const URL = config.get("productionURL") || localURL;
 /* admin route */
 // dashboard
 
