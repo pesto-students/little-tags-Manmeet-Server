@@ -35,7 +35,6 @@ app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
 
 const url = require("url");
-
 /* admin route */
 // dashboard
 
