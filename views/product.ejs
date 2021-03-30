@@ -63,11 +63,14 @@
                                             <button
                                                 class="capitalize px-6 py-2 font-semibold text-sm shadow-lg rounded-lg bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2">
                                                 Edit</button>
-                                            <button
-                                                class="capitalize px-6 py-2 font-semibold text-sm shadow-lg
+                                                <form method="post"
+                                                    action="/product/<%= items[i]._id %>?_method=DELETE">
+                                                <button
+                                                    class="capitalize px-6 py-2 font-semibold text-sm shadow-lg
                                                 rounded-lg bg-red-600 text-white hover:bg-red-700 focus:outline-none
                                                 focus:ring shadow-lg hover:shadow-none transition-all duration-300 m-2">
-                                                Delete</button>
+                                                    Delete</button>
+                                                </form>
                                         </div>
                                     </td>
                                 </tr>
