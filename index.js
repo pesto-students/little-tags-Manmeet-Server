@@ -62,6 +62,16 @@ const getProductData = async (token) => {
   }
 };
 
+const trunkDescription = (products) => {
+  products.forEach((product) => {
+    product.description =
+      product.description.length > 80
+        ? product.description.substr(0, 81).concat("...")
+        : product.description;
+  });
+  return products;
+};
+
 app.get("/", async (req, res) => {
   try {
     const authURI = URL + "api/v1/auth";
@@ -76,7 +86,10 @@ app.get("/", async (req, res) => {
       });
       const value = await dataResponse.json();
 
-      const products = await getProductData(token);
+      let products = await getProductData(token);
+      products = trunkDescription(products);
+      // let WelcomeMessage = "";
+      console.log(req.url);
       res.render(
         "dashboard",
         ((message = "Welcome to shopKart"),
@@ -141,13 +154,8 @@ app.post("/login", async (req, res, next) => {
 app.get("/product", async (req, res) => {
   try {
     const { token } = req.cookies;
-    const products = await getProductData(token);
-    products.forEach((product) => {
-      product.description =
-        product.description.length > 80
-          ? product.description.substr(0, 81).concat("...")
-          : product.description;
-    });
+    let products = await getProductData(token);
+    products = trunkDescription(products);
     res.render(
       "product",
       ((message = ""),
@@ -178,7 +186,8 @@ app.post("/product", async (req, res) => {
     })
       .then((r) => r.json())
       .then(async (result) => {
-        const products = await getProductData(token);
+        let products = await getProductData(token);
+        products = trunkDescription(products);
         res.render(
           "product",
           ((message = result.full_messages),
@@ -209,7 +218,8 @@ app.delete("/product/:id", async (req, res) => {
     })
       .then((r) => r.json())
       .then(async (result) => {
-        const products = await getProductData(token);
+        let products = await getProductData(token);
+        products = trunkDescription(products);
         res.render(
           "product",
           ((message = result.full_messages),
