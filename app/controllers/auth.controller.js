@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 /* Existing user Login Controller */
 exports.login = async (req, res) => {
   const errors = validationResult(req);
-
   if (!errors.isEmpty()) {
     return res
       .status(400)
@@ -18,6 +17,7 @@ exports.login = async (req, res) => {
     const userLogin = await User.findOne({ email });
 
     if (!userLogin) {
+      // console.log("Not loggedIn");
       return res
         .status(401)
         .json({ status: false, full_messages: "Invalid Credentials" });
@@ -26,6 +26,7 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, userLogin.passwordHash);
 
     if (!isMatch) {
+      // console.log("Password Incorrect");
       return res
         .status(401)
         .json({ status: false, full_messages: "Invalid Credentials" });
