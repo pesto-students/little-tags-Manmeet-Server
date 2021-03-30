@@ -48,7 +48,3 @@ exports.checkAdminRights = async (user) => {
   if (role === "Normal") return false;
   return true;
 };
-
-exports.checkAuth = (req, res) => {
-  console.log(req.cookies);
-};
