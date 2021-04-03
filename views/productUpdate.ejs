@@ -1,0 +1,106 @@
+<body>
+    <div class="flex flex-col flex-1 w-full">
+        <main class="h-full overflow-y-auto">
+            <div class="container px-6 mx-auto grid">
+                <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                    Product Update
+                </h2>
+                <div class="container mx-auto">
+                    <div class="max-w-md mx-auto my-6 bg-white p-5 rounded-md shadow-sm">
+                        <div class="text-center">
+                            <h1 class="my-3 text-xl font-semibold text-gray-700 dark:text-gray-200 capitalize">
+                                Update product
+                            </h1>
+                        </div>
+                        <div class="m-7">
+                            <form method="post" action="/product/<%= item._id %>?_method=PUT"
+                                class="flex flex-col space-y-2">
+                                <div class="flex flex-row justify-between items-center">
+                                    <label for="title" class="block text-sm text-gray-600 dark:text-gray-400">Select
+                                        Category
+                                    </label>
+                                    <div class="relative">
+                                        <select required name="categoryName"
+                                            class="bg-transparent rounded border
+                                                                                                                        appearance-none border-gray-200 py-2
+                                                                                                                        focus:outline-none
+                                                                                                                        focus:border-red-500
+                                                                                            text-sm pl-3 pr-10 capitalize">
+
+                                            <option value="men clothing"
+                                                <%= item.categoryName == 'men clothing' ? 'selected' : '' %>>
+                                                men
+                                                clothing</option>
+                                            <option value="women clothing"
+                                                <%= item.categoryName == 'women clothing' ? 'selected' : '' %>>
+                                                women
+                                                clothing</option>
+                                            <option value="electronics"
+                                                <%= item.categoryName == 'electronics' ? 'selected' : '' %>>
+                                                electronics</option>
+                                            <option value="jewelry"
+                                                <%= item.categoryName == 'jewelry' ? 'selected' : '' %>>
+                                                jewelry
+                                            </option>
+                                        </select>
+                                        <span
+                                            class="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                                            <svg fill="none" stroke="currentColor" strokeLinecap="round"
+                                                strokeLinejoin="round" strokeWidth="2" class="w-4 h-4"
+                                                viewBox="0 0 24 24">
+                                                <path d="M6 9l6 6 6-6"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <label for="title" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Title
+                                    </label>
+                                    <input type="text" name="title" id="title" placeholder="T-shirt" required
+                                        class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                                        value="<%= item.title %>" />
+                                </div>
+                                <div class="">
+
+                                    <label for="phone" class="text-sm text-gray-600 dark:text-gray-400">Image
+                                        link
+                                    </label>
+                                    <input type="link" name="image" id="image"
+                                        placeholder="htttps://unsplash.com/t-shirt.png" required
+                                        value="<%= item.image %>"
+                                        class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                                </div>
+                                <div class="">
+
+                                    <label for="price" class="text-sm text-gray-600 dark:text-gray-400">Price
+                                    </label>
+                                    <input type="number" step="0.01" name="price" id="price" value="<%= item.price %>"
+                                        placeholder="$560" required
+                                        class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
+                                </div>
+                                <div class="">
+                                    <label for="description"
+                                        class="block mb-2 text-sm text-gray-600 dark:text-gray-400">
+                                        Description</label>
+
+                                    <textarea rows="3" name="description" id="description"
+                                        placeholder="Your Description"
+                                        class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500"
+                                        required><%= item.title %></textarea>
+                                </div>
+                                <div class="flex flex-row space-x-4">
+                                    <button type="submit"
+                                        class="w-full px-3 py-2 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">
+                                        Add</button>
+                                    <a href="/product"
+                                        class="w-full px-3 py-2 text-white bg-green-500 rounded-md focus:bg-green-600 focus:outline-none">
+                                        Cancel</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
