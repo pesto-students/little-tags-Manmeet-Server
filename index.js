@@ -204,6 +204,37 @@ app.post("/product", async (req, res) => {
   }
 });
 
+app.put("/product/:id", async (req, res) => {
+  try {
+    const productURI = URL + "api/v1/product/" + req.params.id;
+    const { token } = req.cookies;
+    await fetch(`${productURI}`, {
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+      body: JSON.stringify(req.body),
+    })
+      .then((r) => r.json())
+      .then(async (result) => {
+        const products = await getProductData(token);
+        res.render(
+          "product",
+          ((message = result.full_messages),
+          (items = products),
+          (pageName = {
+            pageName: "Product",
+          }))
+        );
+      })
+      .catch((e) => console.error(e.message));
+  } catch (error) {
+    console.error(err.message);
+    res.render("login", { layout: "./layouts/loginLayout" });
+  }
+});
+
 app.delete("/product/:id", async (req, res) => {
   console.log(req.params.id);
   try {
@@ -236,6 +267,35 @@ app.delete("/product/:id", async (req, res) => {
   }
 });
 
+app.get("/productUpdate/:id", async (req, res) => {
+  console.log(req.params.id);
+  try {
+    const productURI = URL + "api/v1/product/" + req.params.id;
+    const { token } = req.cookies;
+    await fetch(`${productURI}`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((r) => r.json())
+      .then((result) => {
+        res.render(
+          "productUpdate",
+          ((item = result),
+          (message = ""),
+          (pageName = {
+            pageName: "Product",
+          }))
+        );
+      })
+      .catch((e) => console.error(e.message));
+  } catch (error) {
+    console.error(err.message);
+    res.render("login", { layout: "./layouts/loginLayout" });
+  }
+});
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 module.exports = app;
