@@ -24,13 +24,12 @@ exports.orderDashboard = async (req, res) => {
   try {
     const { token } = req.cookies;
     let orders = await getAllOrders(token);
-    console.log(orders);
     res.render(
       "orders",
       ((message = ""),
       (items = orders),
       (pageName = {
-        pageName: "orders",
+        pageName: "Orders",
       }))
     );
   } catch (error) {

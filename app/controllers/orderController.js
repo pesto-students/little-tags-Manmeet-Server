@@ -4,13 +4,6 @@ const { checkAdminRights } = require("../utils/utils");
 // create a new Order
 exports.addOrderItems = async (req, res) => {
   try {
-    const isAdminRights = await checkAdminRights(req.user);
-    if (!isAdminRights) {
-      return res.status(401).json({
-        status: false,
-        full_messages: "Access denied: Need Admin rights",
-      });
-    }
     const {
       orderItems,
       shippingAddress,

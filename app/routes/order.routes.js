@@ -20,4 +20,10 @@ router.post("/", auth, orderController.addOrderItems);
  */
 router.get("/", auth, orderController.getOrders);
 
+/**
+ * @route   GET api/v1/orders/myOrders
+ * @desc    Get all orders to specific user
+ * @access  Private/Admin
+ */
+
 module.exports = router;
