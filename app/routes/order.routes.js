@@ -25,5 +25,6 @@ router.get("/", auth, orderController.getOrders);
  * @desc    Get all orders to specific user
  * @access  Private/Admin
  */
+router.get("/myOrders", auth, orderController.getMyOrders);
 
 module.exports = router;
