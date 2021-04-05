@@ -41,7 +41,7 @@ const mostOrdered = async (token) => {
 
 const orderUsers = async (token) => {
   try {
-    const productURI = URL + "api/v1/orders/orderUsers";
+    const productURI = URL + "api/v1/orders";
     return await fetch(`${productURI}`, {
       headers: {
         "Content-Type": "application/json",

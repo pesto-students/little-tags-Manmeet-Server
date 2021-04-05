@@ -113,7 +113,7 @@ exports.mostOrdered = async (req, res) => {
   }
 };
 
-exports.orderUsersDay = async (req, res) => {
+exports.orderUsersByDay = async (req, res) => {
   try {
     Order.aggregate(
       [

@@ -29,8 +29,8 @@ router.get("/myOrders", auth, orderController.getMyOrders);
 
 router.get("/mostOrdered", auth, orderController.mostOrdered);
 
-router.get("/orderUsers/day", auth, orderController.orderUsersDay);
-router.get("/orderUsers/month", auth, orderController.orderUsersMonth);
-router.get("/orderUsers/year", auth, orderController.orderUsersYear);
+router.get("/orderUsers/day", auth, orderController.orderUsersByDay);
+router.get("/orderUsers/month", auth, orderController.orderUsersByMonthly);
+router.get("/orderUsers/year", auth, orderController.orderUsersByYearly);
 
 module.exports = router;
