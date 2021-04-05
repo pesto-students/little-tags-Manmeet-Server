@@ -23,8 +23,14 @@ router.get("/", auth, orderController.getOrders);
 /**
  * @route   GET api/v1/orders/myOrders
  * @desc    Get all orders to specific user
- * @access  Private/Admin
+ * @access  Private
  */
 router.get("/myOrders", auth, orderController.getMyOrders);
+
+router.get("/mostOrdered", auth, orderController.mostOrdered);
+
+router.get("/orderUsers/day", auth, orderController.orderUsersDay);
+router.get("/orderUsers/month", auth, orderController.orderUsersMonth);
+router.get("/orderUsers/year", auth, orderController.orderUsersYear);
 
 module.exports = router;
