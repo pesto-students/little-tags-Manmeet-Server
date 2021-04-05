@@ -4,271 +4,414 @@
 
 <body x-data="{ showModal2: false}" :class="{'overflow-y-hidden':showModal2}">
   <div class="flex flex-col flex-1 w-full">
-      <main class="h-full overflow-y-auto">
-          <div class="container px-6 mx-auto grid">
-              <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
-                  Orders History
-              </h2>
-              <!-- New Table -->
-              <div class="w-full overflow-hidden rounded-lg shadow-xs">
-                  <div class="w-full overflow-x-auto">
-                    <!-- test-->
-                    <div class="flex flex-wrap">
-                      <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                        <!--Metric Card-->
-                        <div
-                          class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5"
-                        >
-                          <div class="flex flex-row items-center">
-                            <div class="flex-shrink pr-4">
-                              <div class="rounded-full p-5 bg-green-600">
-                                <i class="fa fa-wallet fa-2x fa-inverse"></i>
-                              </div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                              <h5 class="font-bold uppercase text-gray-600">
-                                Total Revenue
-                              </h5>
-                              <h3 class="font-bold text-3xl">
-                                $3249
-                                <span class="text-green-500"
-                                  ><i class="fas fa-caret-up"></i
-                                ></span>
-                              </h3>
-                            </div>
-                          </div>
-                        </div>
-                        <!--/Metric Card-->
-                      </div>
-                      <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                        <!--Metric Card-->
-                        <div
-                          class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5"
-                        >
-                          <div class="flex flex-row items-center">
-                            <div class="flex-shrink pr-4">
-                              <div class="rounded-full p-5 bg-pink-600">
-                                <i class="fas fa-users fa-2x fa-inverse"></i>
-                              </div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                              <h5 class="font-bold uppercase text-gray-600">Total Users</h5>
-                              <h3 class="font-bold text-3xl">
-                                249
-                                <span class="text-pink-500"
-                                  ><i class="fas fa-exchange-alt"></i
-                                ></span>
-                              </h3>
-                            </div>
-                          </div>
-                        </div>
-                        <!--/Metric Card-->
-                      </div>
-                      <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                        <!--Metric Card-->
-                        <div
-                          class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5"
-                        >
-                          <div class="flex flex-row items-center">
-                            <div class="flex-shrink pr-4">
-                              <div class="rounded-full p-5 bg-yellow-600">
-                                <i class="fas fa-user-plus fa-2x fa-inverse"></i>
-                              </div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                              <h5 class="font-bold uppercase text-gray-600">New Users</h5>
-                              <h3 class="font-bold text-3xl">
-                                2
-                                <span class="text-yellow-600"
-                                  ><i class="fas fa-caret-up"></i
-                                ></span>
-                              </h3>
-                            </div>
-                          </div>
-                        </div>
-                        <!--/Metric Card-->
-                      </div>
-                      <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                        <!--Metric Card-->
-                        <div
-                          class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5"
-                        >
-                          <div class="flex flex-row items-center">
-                            <div class="flex-shrink pr-4">
-                              <div class="rounded-full p-5 bg-blue-600">
-                                <i class="fas fa-server fa-2x fa-inverse"></i>
-                              </div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                              <h5 class="font-bold uppercase text-gray-600">
-                                Server Uptime
-                              </h5>
-                              <h3 class="font-bold text-3xl">152 days</h3>
-                            </div>
-                          </div>
-                        </div>
-                        <!--/Metric Card-->
-                      </div>
-                      <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                        <!--Metric Card-->
-                        <div
-                          class="bg-gradient-to-b from-indigo-200 to-indigo-100 border-b-4 border-indigo-500 rounded-lg shadow-xl p-5"
-                        >
-                          <div class="flex flex-row items-center">
-                            <div class="flex-shrink pr-4">
-                              <div class="rounded-full p-5 bg-indigo-600">
-                                <i class="fas fa-tasks fa-2x fa-inverse"></i>
-                              </div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                              <h5 class="font-bold uppercase text-gray-600">To Do List</h5>
-                              <h3 class="font-bold text-3xl">7 tasks</h3>
-                            </div>
-                          </div>
-                        </div>
-                        <!--/Metric Card-->
-                      </div>
-                      <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                        <!--Metric Card-->
-                        <div
-                          class="bg-gradient-to-b from-red-200 to-red-100 border-b-4 border-red-500 rounded-lg shadow-xl p-5"
-                        >
-                          <div class="flex flex-row items-center">
-                            <div class="flex-shrink pr-4">
-                              <div class="rounded-full p-5 bg-red-600">
-                                <i class="fas fa-inbox fa-2x fa-inverse"></i>
-                              </div>
-                            </div>
-                            <div class="flex-1 text-right md:text-center">
-                              <h5 class="font-bold uppercase text-gray-600">Issues</h5>
-                              <h3 class="font-bold text-3xl">
-                                3
-                                <span class="text-red-500"
-                                  ><i class="fas fa-caret-up"></i
-                                ></span>
-                              </h3>
-                            </div>
-                          </div>
-                        </div>
-                        <!--/Metric Card-->
-                      </div>
+    <main class="h-full overflow-y-auto">
+      <div class="container px-6 mx-auto grid">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+          Orders History
+        </h2>
+        <!-- New Table -->
+        <div class="container px-4 py-4 mx-auto">
+          <h3 class="block text-xl text-gray-700 font-semibold mb-3"></h3>
+          <div class="flex">
+            <div class="w-1/2">
+              <div class="rounded-md p-6 bg-white shadow">
+                <div class="mb-2 pb-2">
+                  <h3 class="font-semibold text-lg text-gray-600">Most Ordered product</h3>
+                  <p class="text-sm text-gray-500">Profit Share between customers</p>
+                </div>
+                <div id="chartdiv" class="w-full" style="height: 240px"></div>
+              </div>
+            </div>
+            <div class="w-1/2 ml-4">
+              <div class="rounded-md p-6 bg-white shadow">
+                <div class="mb-2 pb-2">
+                  <h3 class="font-semibold text-lg text-gray-600">Total Revenue</h3>
+                  <p class="text-sm text-gray-500">Profit Share between customers</p>
+                </div>
+                <div id="chartdiv2" class="w-full" style="height: 240px"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources -->
+      <script src="https://www.amcharts.com/lib/4/core.js"></script>
+      <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+      <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+      <script>
+        function bar_chart(selector, data) {
+          // Themes begin
+          // Themes end
+          am4core.useTheme(am4themes_animated);
+
+          // Create chart instance
+          var chart = am4core.create(selector, am4charts.XYChart);
+
+          // Add data
+          chart.data = data;
+
+          // Create axes
+
+          var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+          categoryAxis.dataFields.category = "country";
+          categoryAxis.renderer.grid.template.location = 0;
+          categoryAxis.renderer.minGridDistance = 30;
+
+          categoryAxis.renderer.labels.template.adapter.add("dy", function (dy, target) {
+            if (target.dataItem && target.dataItem.index & 2 == 2) {
+              return dy + 25;
+            }
+            return dy;
+          });
+
+          var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+
+          // Create series
+          var series = chart.series.push(new am4charts.ColumnSeries());
+          series.dataFields.valueY = "visits";
+          series.dataFields.categoryX = "country";
+          series.name = "Visits";
+          series.columns.template.tooltipText = "{categoryX}: [bold]{valueY}[/]";
+          series.columns.template.fillOpacity = .8;
+
+          var columnTemplate = series.columns.template;
+          columnTemplate.strokeWidth = 2;
+          columnTemplate.strokeOpacity = 1;
+        }
+
+        function radar_chart(selector, data) {
+          // Themes begin
+          // Themes end
+          am4core.useTheme(am4themes_animated);
+
+          // Create chart instance
+          var chart = am4core.create(selector, am4charts.RadarChart);
+
+
+          chart.data = data;
+
+          // Make chart not full circle
+          chart.startAngle = -90;
+          chart.endAngle = 180;
+          chart.innerRadius = am4core.percent(20);
+
+          // Set number format
+          chart.numberFormatter.numberFormat = "#.#'%'";
+
+          // Create axes
+          var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+          categoryAxis.dataFields.category = "category";
+          categoryAxis.renderer.grid.template.location = 0;
+          categoryAxis.renderer.grid.template.strokeOpacity = 0;
+          categoryAxis.renderer.labels.template.horizontalCenter = "right";
+          categoryAxis.renderer.labels.template.fontWeight = 500;
+          categoryAxis.renderer.labels.template.adapter.add("fill", function (fill, target) {
+            return (target.dataItem.index >= 0) ? chart.colors.getIndex(target.dataItem.index) : fill;
+          });
+          categoryAxis.renderer.minGridDistance = 10;
+
+          var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+          valueAxis.renderer.grid.template.strokeOpacity = 0;
+          valueAxis.min = 0;
+          valueAxis.max = 100;
+          valueAxis.strictMinMax = true;
+
+          // Create series
+          var series1 = chart.series.push(new am4charts.RadarColumnSeries());
+          series1.dataFields.valueX = "full";
+          series1.dataFields.categoryY = "category";
+          series1.clustered = false;
+          series1.columns.template.fill = new am4core.InterfaceColorSet().getFor("alternativeBackground");
+          series1.columns.template.fillOpacity = 0.08;
+          series1.columns.template.cornerRadiusTopLeft = 20;
+          series1.columns.template.strokeWidth = 0;
+          series1.columns.template.radarColumn.cornerRadius = 20;
+
+          var series2 = chart.series.push(new am4charts.RadarColumnSeries());
+          series2.dataFields.valueX = "value";
+          series2.dataFields.categoryY = "category";
+          series2.clustered = false;
+          series2.columns.template.strokeWidth = 0;
+          series2.columns.template.tooltipText = "{category}: [bold]{value}[/]";
+          series2.columns.template.radarColumn.cornerRadius = 20;
+
+          series2.columns.template.adapter.add("fill", function (fill, target) {
+            return chart.colors.getIndex(target.dataItem.index);
+          });
+
+          // Add cursor
+          chart.cursor = new am4charts.RadarCursor();
+        }
+
+        am4core.ready(function () {
+          bar_chart("chartdiv", [{
+            "country": "T-shirt1",
+            "visits": 2025
+          }, {
+            "country": "T-shirt2",
+            "visits": 1882
+          }, {
+            "country": "Jeans",
+            "visits": 1809
+          }]);
+
+          radar_chart("chartdiv2", [{
+            "category": "Research",
+            "value": 80,
+            "full": 100
+          }, {
+            "category": "Human Resources",
+            "value": 68,
+            "full": 100
+          }]);
+        }); // end am4core.ready()
+      </script>
+      <div class="w-full overflow-hidden rounded-lg shadow-xs">
+        <div class="w-full overflow-x-auto">
+          <!-- test-->
+          <div class="flex flex-wrap">
+            <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+              <!--Metric Card-->
+              <div
+                class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5">
+                <div class="flex flex-row items-center">
+                  <div class="flex-shrink pr-4">
+                    <div class="rounded-full p-5 bg-green-600">
+                      <i class="fa fa-wallet fa-2x fa-inverse"></i>
                     </div>
-                      <table class="w-full whitespace-no-wrap">
-                          <thead>
-                              <tr
-                                  class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                  <th class="px-4 py-3">Order ID</th>
-                                  <th class="px-4 py-3">Order Date</th>
-                                  <th class="px-4 py-3">Order Cost</th>
-                                  <th class="px-4 py-3">Payment Method</th>
-                              </tr>
-                          </thead>
-                          <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                              <% for(var i=0; i<items.length; i++) {%>
-                              <tr class="text-gray-700 dark:text-gray-400">
-                                  <td class="px-4 py-3">
-                                      <div class="flex items-center text-sm">
-                                          <p class="font-semibold">
-                                              <%= items[i]._id %>
-                                          </p>
-                                      </div>
-                                  </td>
-                                  <td class="px-4 py-3 text-sm"><%= items[i].orderDate %></td>
-                                  <% var orderCost = 0 %>
-                                  <% for (var j =0; j < items[i].orderItems.length;  j++ ) { %>
-                                     <% orderCost += items[i].orderItems[j].netPrice%>
-                                    <% } %>
-                                    
-                                  <td class="px-4 py-3 text-xs">
-                                      <span
-                                          class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                          $ <%= orderCost %>
-                                      </span>
-                                  </td>
-                                  <td class="px-4 py-3 text-sm truncate"><%= items[i].paymentMethod %></td>
-                              </tr>
-                              <% } %>
-                          </tbody>
-                      </table>
                   </div>
-                  <div
-                      class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
-                      <span class="flex items-center col-span-3">
-                          Showing 21-30 of 100
-                      </span>
-                      <span class="col-span-2"></span>
-                      <!-- Pagination -->
-                      <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
-                          <nav aria-label="Table navigation">
-                              <ul class="inline-flex items-center">
-                                  <li>
-                                      <button
-                                          class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
-                                          aria-label="Previous">
-                                          <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                              <path
-                                                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                                  clip-rule="evenodd" fill-rule="evenodd"></path>
-                                          </svg>
-                                      </button>
-                                  </li>
-                                  <li>
-                                      <button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600
+                  <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold uppercase text-gray-600">
+                      Total Revenue
+                    </h5>
+                    <h3 class="font-bold text-3xl">
+                      $3249
+                      <span class="text-green-500"><i class="fas fa-caret-up"></i></span>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <!--/Metric Card-->
+            </div>
+            <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+              <!--Metric Card-->
+              <div
+                class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5">
+                <div class="flex flex-row items-center">
+                  <div class="flex-shrink pr-4">
+                    <div class="rounded-full p-5 bg-pink-600">
+                      <i class="fas fa-users fa-2x fa-inverse"></i>
+                    </div>
+                  </div>
+                  <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold uppercase text-gray-600">Total Users</h5>
+                    <h3 class="font-bold text-3xl">
+                      249
+                      <span class="text-pink-500"><i class="fas fa-exchange-alt"></i></span>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <!--/Metric Card-->
+            </div>
+            <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+              <!--Metric Card-->
+              <div
+                class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5">
+                <div class="flex flex-row items-center">
+                  <div class="flex-shrink pr-4">
+                    <div class="rounded-full p-5 bg-yellow-600">
+                      <i class="fas fa-user-plus fa-2x fa-inverse"></i>
+                    </div>
+                  </div>
+                  <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold uppercase text-gray-600">New Users</h5>
+                    <h3 class="font-bold text-3xl">
+                      2
+                      <span class="text-yellow-600"><i class="fas fa-caret-up"></i></span>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <!--/Metric Card-->
+            </div>
+            <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+              <!--Metric Card-->
+              <div
+                class="bg-gradient-to-b from-blue-200 to-blue-100 border-b-4 border-blue-500 rounded-lg shadow-xl p-5">
+                <div class="flex flex-row items-center">
+                  <div class="flex-shrink pr-4">
+                    <div class="rounded-full p-5 bg-blue-600">
+                      <i class="fas fa-server fa-2x fa-inverse"></i>
+                    </div>
+                  </div>
+                  <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold uppercase text-gray-600">
+                      Server Uptime
+                    </h5>
+                    <h3 class="font-bold text-3xl">152 days</h3>
+                  </div>
+                </div>
+              </div>
+              <!--/Metric Card-->
+            </div>
+            <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+              <!--Metric Card-->
+              <div
+                class="bg-gradient-to-b from-indigo-200 to-indigo-100 border-b-4 border-indigo-500 rounded-lg shadow-xl p-5">
+                <div class="flex flex-row items-center">
+                  <div class="flex-shrink pr-4">
+                    <div class="rounded-full p-5 bg-indigo-600">
+                      <i class="fas fa-tasks fa-2x fa-inverse"></i>
+                    </div>
+                  </div>
+                  <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold uppercase text-gray-600">To Do List</h5>
+                    <h3 class="font-bold text-3xl">7 tasks</h3>
+                  </div>
+                </div>
+              </div>
+              <!--/Metric Card-->
+            </div>
+            <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+              <!--Metric Card-->
+              <div class="bg-gradient-to-b from-red-200 to-red-100 border-b-4 border-red-500 rounded-lg shadow-xl p-5">
+                <div class="flex flex-row items-center">
+                  <div class="flex-shrink pr-4">
+                    <div class="rounded-full p-5 bg-red-600">
+                      <i class="fas fa-inbox fa-2x fa-inverse"></i>
+                    </div>
+                  </div>
+                  <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold uppercase text-gray-600">Issues</h5>
+                    <h3 class="font-bold text-3xl">
+                      3
+                      <span class="text-red-500"><i class="fas fa-caret-up"></i></span>
+                    </h3>
+                  </div>
+                </div>
+              </div>
+              <!--/Metric Card-->
+            </div>
+          </div>
+          <% if (mm) { %>
+          <ul>
+            <% mm.forEach(function(m){ %>
+            <%- m.total %>
+            <% }); %>
+          </ul>
+          <% } %>
+          <table class="w-full whitespace-no-wrap">
+            <thead>
+              <tr
+                class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                <th class="px-4 py-3">Order ID</th>
+                <th class="px-4 py-3">Order Date</th>
+                <th class="px-4 py-3">Order Cost</th>
+                <th class="px-4 py-3">Payment Method</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              <% for(var i=0; i<items.length; i++) {%>
+              <tr class="text-gray-700 dark:text-gray-400">
+                <td class="px-4 py-3">
+                  <div class="flex items-center text-sm">
+                    <p class="font-semibold">
+                      <%= items[i]._id %>
+                    </p>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-sm"><%= items[i].orderDate %></td>
+                <% var orderCost = 0 %>
+                <% for (var j =0; j < items[i].orderItems.length;  j++ ) { %>
+                <% orderCost += items[i].orderItems[j].netPrice%>
+                <% } %>
+
+                <td class="px-4 py-3 text-xs">
+                  <span
+                    class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                    $ <%= orderCost %>
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-sm truncate"><%= items[i].paymentMethod %></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <div
+          class="grid px-4 py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase border-t dark:border-gray-700 bg-gray-50 sm:grid-cols-9 dark:text-gray-400 dark:bg-gray-800">
+          <span class="flex items-center col-span-3">
+            Showing 21-30 of 100
+          </span>
+          <span class="col-span-2"></span>
+          <!-- Pagination -->
+          <span class="flex col-span-4 mt-2 sm:mt-auto sm:justify-end">
+            <nav aria-label="Table navigation">
+              <ul class="inline-flex items-center">
+                <li>
+                  <button class="px-3 py-1 rounded-md rounded-l-lg focus:outline-none focus:shadow-outline-purple"
+                    aria-label="Previous">
+                    <svg aria-hidden="true" class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 text-white transition-colors duration-150 bg-purple-600
                                           border border-r-0 border-purple-600 rounded-md focus:outline-none
                                           focus:shadow-outline-purple">
-                                          1
-                                      </button>
-                                  </li>
-                                  <li>
-                                      <button
-                                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                          2
-                                      </button>
-                                  </li>
-                                  <li>
-                                      <button
-                                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                          3
-                                      </button>
-                                  </li>
-                                  <li>
-                                      <button
-                                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                          4
-                                      </button>
-                                  </li>
-                                  <li>
-                                      <span class="px-3 py-1">...</span>
-                                  </li>
-                                  <li>
-                                      <button
-                                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                          8
-                                      </button>
-                                  </li>
-                                  <li>
-                                      <button
-                                          class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
-                                          9
-                                      </button>
-                                  </li>
-                                  <li>
-                                      <button
-                                          class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
-                                          aria-label="Next">
-                                          <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
-                                              <path
-                                                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                                  clip-rule="evenodd" fill-rule="evenodd"></path>
-                                          </svg>
-                                      </button>
-                                  </li>
-                              </ul>
-                          </nav>
-                      </span>
-                  </div>
-              </div>
-          </div>
-      </main>
+                    1
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    2
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    3
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    4
+                  </button>
+                </li>
+                <li>
+                  <span class="px-3 py-1">...</span>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    8
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md focus:outline-none focus:shadow-outline-purple">
+                    9
+                  </button>
+                </li>
+                <li>
+                  <button class="px-3 py-1 rounded-md rounded-r-lg focus:outline-none focus:shadow-outline-purple"
+                    aria-label="Next">
+                    <svg class="w-4 h-4 fill-current" aria-hidden="true" viewBox="0 0 20 20">
+                      <path
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd" fill-rule="evenodd"></path>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </span>
+        </div>
+      </div>
+  </div>
+  </main>
   </div>
 </body>

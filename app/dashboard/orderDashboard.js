@@ -109,17 +109,18 @@ exports.orderDashboard = async (req, res) => {
     let orderUsers_Month = await orderUsersByMonth(token);
     let orderUser_Year = await orderUsersByYear(token);
     // display all the data for the user
-    // console.log(
-    //   mostOrderedProducts,
-    //   orderUsers_Day,
-    //   orderUsers_Month,
-    //   orderUser_Year
-    // );
+    console.log(
+      mostOrderedProducts,
+      orderUsers_Day,
+      orderUsers_Month,
+      orderUser_Year
+    );
     // todo
     // display top 5 mostOrderedProducts in table
     res.render(
       "orders",
       ((message = ""),
+      (mm = mostOrderedProducts),
       (items = orders),
       (pageName = {
         pageName: "Orders",
