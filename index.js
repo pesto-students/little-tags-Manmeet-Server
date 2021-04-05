@@ -13,6 +13,11 @@ require("./app/DB/mongoDB.config");
 const userRoute = require("./app/routes/user.routes");
 const productRoute = require("./app/routes/product.routes");
 const authRoute = require("./app/routes/auth.routes");
+const orderRoute = require("./app/routes/order.routes");
+
+/* Dashboard */
+const orderDashboard = require("./app/dashboard/orderDashboard");
+
 const { checkAuth } = require("./app/utils/utils");
 const cookieParser = require("cookie-parser");
 const port = process.env.PORT || config.get("port");
@@ -36,6 +41,7 @@ app.set("view engine", "ejs");
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/product", productRoute);
+app.use("/api/v1/orders", orderRoute);
 
 const url = require("url");
 /* admin route */
@@ -71,7 +77,7 @@ const trunkDescription = (products) => {
   });
   return products;
 };
-
+/* Home Page */
 app.get("/", async (req, res) => {
   try {
     const authURI = URL + "api/v1/auth";
@@ -89,7 +95,6 @@ app.get("/", async (req, res) => {
       let products = await getProductData(token);
       products = trunkDescription(products);
       // let WelcomeMessage = "";
-      console.log(req.url);
       res.render(
         "dashboard",
         ((message = "Welcome to shopKart"),
@@ -114,7 +119,7 @@ app.get("/login", (req, res) => {
   res.render("login", { layout: "./layouts/loginLayout" });
 });
 
-//
+// register
 app.post("/login", async (req, res, next) => {
   try {
     const authURI = URL + "api/v1/auth";
@@ -151,6 +156,7 @@ app.post("/login", async (req, res, next) => {
   }
 });
 
+// get all products
 app.get("/product", async (req, res) => {
   try {
     const { token } = req.cookies;
@@ -172,6 +178,7 @@ app.get("/product", async (req, res) => {
   }
 });
 
+// Add new product
 app.post("/product", async (req, res) => {
   try {
     const productURI = URL + "api/v1/product";
@@ -204,6 +211,7 @@ app.post("/product", async (req, res) => {
   }
 });
 
+// update a new product
 app.put("/product/:id", async (req, res) => {
   try {
     const productURI = URL + "api/v1/product/" + req.params.id;
@@ -235,6 +243,7 @@ app.put("/product/:id", async (req, res) => {
   }
 });
 
+// delete a product by id
 app.delete("/product/:id", async (req, res) => {
   console.log(req.params.id);
   try {
@@ -267,6 +276,7 @@ app.delete("/product/:id", async (req, res) => {
   }
 });
 
+// update product by an id
 app.get("/productUpdate/:id", async (req, res) => {
   console.log(req.params.id);
   try {
@@ -296,6 +306,10 @@ app.get("/productUpdate/:id", async (req, res) => {
     res.render("login", { layout: "./layouts/loginLayout" });
   }
 });
+
+// orders
+app.get("/orders", orderDashboard.orderDashboard);
+
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 module.exports = app;
