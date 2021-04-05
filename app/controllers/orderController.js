@@ -152,7 +152,7 @@ exports.orderUsersDay = async (req, res) => {
   }
 };
 
-exports.orderUsersMonth = async (req, res) => {
+exports.orderUsersByMonthly = async (req, res) => {
   try {
     Order.aggregate(
       [
@@ -191,7 +191,7 @@ exports.orderUsersMonth = async (req, res) => {
   }
 };
 
-exports.orderUsersYear = async (req, res) => {
+exports.orderUsersByYearly = async (req, res) => {
   try {
     Order.aggregate(
       [
