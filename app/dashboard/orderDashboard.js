@@ -111,33 +111,37 @@ exports.orderDashboard = async (req, res) => {
     console.log(
       mostOrderedProducts,
       orderUsers_Day,
-      orderUsers_Month[0].MonthlyUsers,
+      orderUsers_Month,
       orderUser_Year
     );
     // todo
     // display top 5 mostOrderedProducts in table
-    // odored data by time
+    // TODO: get ony single number in response instead of
+    // { DayUsers: 6 } ] [ { MonthlyUsers: 8 } ] [ { YearlyUsers: 8 }
+    // get 6,8,8 for order by time
+    const full = orderUser_Year[0].YearlyUsers;
     const temp = [
       {
         category: "Daily",
-        value: 4,
-        full: 100,
+        value: orderUsers_Day[0].DayUsers,
+        full: full,
       },
       {
         category: "Monthly",
-        value: 10,
-        full: 100,
+        value: orderUsers_Month[0].MonthlyUsers,
+        full: full,
       },
       {
         category: "Yearly",
-        value: 16,
-        full: 100,
+        value: orderUser_Year[0].YearlyUsers,
+        full: full,
       },
     ];
     res.render(
       "orders",
       ((message = ""),
       (mm = mostOrderedProducts),
+      (orderByTime = temp),
       (items = orders),
       (pageName = {
         pageName: "Orders",
