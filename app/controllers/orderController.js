@@ -80,7 +80,7 @@ exports.mostOrdered = async (req, res) => {
       },
       {
         $group: {
-          _id: "$orderItems.productId",
+          _id: "$orderItems.name",
           total: { $sum: "$orderItems.quantity" },
         },
       },

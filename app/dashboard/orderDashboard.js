@@ -111,11 +111,29 @@ exports.orderDashboard = async (req, res) => {
     console.log(
       mostOrderedProducts,
       orderUsers_Day,
-      orderUsers_Month,
+      orderUsers_Month[0].MonthlyUsers,
       orderUser_Year
     );
     // todo
     // display top 5 mostOrderedProducts in table
+    // odored data by time
+    const temp = [
+      {
+        category: "Daily",
+        value: 4,
+        full: 100,
+      },
+      {
+        category: "Monthly",
+        value: 10,
+        full: 100,
+      },
+      {
+        category: "Yearly",
+        value: 16,
+        full: 100,
+      },
+    ];
     res.render(
       "orders",
       ((message = ""),
