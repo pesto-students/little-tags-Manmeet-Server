@@ -201,7 +201,7 @@
                 <td class="px-4 py-3 text-sm"><%= items[i].orderDate %></td>
                 <% var orderCost = 0 %>
                 <% for (var j =0; j < items[i].orderItems.length;  j++ ) { %>
-                <% orderCost += items[i].orderItems[j].netPrice%>
+                <% orderCost += items[i].orderItems[j].netPrice *items[i].orderItems[j].quantity%>
                 <% } %>
 
                 <td class="px-4 py-3 text-xs">
