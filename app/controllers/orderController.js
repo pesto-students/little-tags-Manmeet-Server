@@ -113,7 +113,7 @@ exports.mostOrdered = async (req, res) => {
   }
 };
 
-exports.orderUsersByDay = async (req, res) => {
+exports.orderUsersByDate = async (req, res) => {
   try {
     Order.aggregate(
       [
@@ -130,7 +130,7 @@ exports.orderUsersByDay = async (req, res) => {
         },
         {
           $match: {
-            day: new Date().getDate(),
+            day: new Date().getUTCDate(),
           },
         },
         {
@@ -169,7 +169,7 @@ exports.orderUsersByMonthly = async (req, res) => {
         },
         {
           $match: {
-            month: new Date().getMonth() + 1,
+            month: new Date().getUTCMonth() + 1,
           },
         },
         {
@@ -208,7 +208,7 @@ exports.orderUsersByYearly = async (req, res) => {
         },
         {
           $match: {
-            year: new Date().getFullYear(),
+            year: new Date().getUTCFullYear(),
           },
         },
         {

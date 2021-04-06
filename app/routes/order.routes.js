@@ -29,7 +29,7 @@ router.get("/myOrders", auth, orderController.getMyOrders);
 
 router.get("/mostOrdered", auth, orderController.mostOrdered);
 
-router.get("/orderUsers/day", auth, orderController.orderUsersByDay);
+router.get("/orderUsers/day", auth, orderController.orderUsersByDate);
 router.get("/orderUsers/month", auth, orderController.orderUsersByMonthly);
 router.get("/orderUsers/year", auth, orderController.orderUsersByYearly);
 

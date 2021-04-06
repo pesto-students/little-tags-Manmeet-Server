@@ -63,6 +63,7 @@ const OrderSchema = new Schema({
   orderDate: {
     type: Date,
     required: false,
+    default: new Date(),
   },
 });
 
