@@ -21,7 +21,7 @@ exports.register = async (req, res) => {
     if (userExist) {
       return res.status(422).json({
         status: false,
-        errors: [{ full_messages: "User already exist" }],
+        full_messages: "User already exist",
       });
     }
 

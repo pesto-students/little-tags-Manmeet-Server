@@ -24,7 +24,6 @@ const getAllOrders = async (token) => {
 
 const mostOrdered = async (token) => {
   try {
-    console.log(token);
     const productURI = URL + "api/v1/orders/mostOrdered";
     return await fetch(`${productURI}`, {
       headers: {
