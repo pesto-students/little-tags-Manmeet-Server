@@ -1,40 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Tailwind Admin Login</title>
-    <meta name="author" content="David Grzyb" />
-    <meta name="description" content="" />
 
-    <link
-      href="https://unpkg.com/tailwindcss/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Tailwind Admin Login</title>
+  <meta name="author" content="David Grzyb" />
+  <meta name="description" content="" />
 
-  <body
-    class="body-bg min-h-screen pt-6 md:pt-10 pb-6 px-2 md:px-0"
-    style="font-family: 'Lato', sans-serif"
-  >
-    <header class="max-w-lg mx-auto">
-      <div class="flex flex-row space-x-4 justify-center items-center">
-        <img
-          class="block h-8 w-auto mr-2"
-          src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-          alt="Workflow"
-        />
-        <a href="/">
-          <h1 class="text-4xl font-bold text-blue-700 text-center">Shopkart</h1>
-        </a>
-      </div>
-    </header>
-    <main><%- body %></main>
-    <%- include('../partials/footer.ejs') %>
-  </body>
+  <link href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+
+<body class="body-bg min-h-screen pt-6 md:pt-10 pb-6 px-2 md:px-0 flex flex-col justify-between"
+  style="font-family: 'Lato', sans-serif">
+  <header class="max-w-lg mx-auto">
+    <div class="flex flex-row space-x-4 justify-center items-center">
+      <img class="block h-8 w-auto mr-2" src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+        alt="Workflow" />
+      <a href="/">
+        <h1 class="text-4xl font-bold text-blue-700 text-center">Shopkart</h1>
+      </a>
+    </div>
+  </header>
+  <main><%- body %></main>
+  <%- include('../partials/footer.ejs') %>
+</body>
+
 </html>
