@@ -309,6 +309,7 @@ app.get("/productUpdate/:id", async (req, res) => {
 
 // orders
 app.get("/orders", orderDashboard.orderDashboard);
+app.get("/orders/orderSummery/:id", orderDashboard.orderSummery);
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 

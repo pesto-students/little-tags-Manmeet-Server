@@ -98,6 +98,34 @@ const orderUsersByYear = async (token) => {
   }
 };
 
+exports.orderSummery = async (req, res) => {
+  try {
+    const { token } = req.cookies;
+    const productURI = URL + "api/v1/orders/orderSummery/" + req.params.id;
+    const result = await fetch(`${productURI}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        return res;
+      });
+    res.render(
+      "orderSummery",
+      ((message = ""),
+      (orderSummery = result),
+      (pageName = {
+        pageName: "Orders",
+      }))
+    );
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ status: false, full_messages: "Server Error" });
+  }
+};
+
 exports.orderDashboard = async (req, res) => {
   try {
     const { token } = req.cookies;
@@ -108,22 +136,22 @@ exports.orderDashboard = async (req, res) => {
     let orderUsers_Month = await orderUsersByMonth(token);
     let orderUser_Year = await orderUsersByYear(token);
     // display all the data for the user
-    console.log(
-      mostOrderedProducts,
-      orderUsers_Day,
-      orderUsers_Month,
-      orderUser_Year
-    );
+    // console.log(
+    //   mostOrderedProducts,
+    //   orderUsers_Day,
+    //   orderUsers_Month,
+    //   orderUser_Year
+    // );
     // todo
     // display top 5 mostOrderedProducts in table
     // TODO: get ony single number in response instead of
     // { DayUsers: 6 } ] [ { MonthlyUsers: 8 } ] [ { YearlyUsers: 8 }
     // get 6,8,8 for order by time
     const full = orderUser_Year[0].YearlyUsers;
-    const temp = [
+    const orderBy = [
       {
         category: "Daily",
-        value: orderUsers_Day[0].DayUsers,
+        value: orderUsers_Day[0] ? orderUsers_Day[0].DayUsers : 0,
         full: full,
       },
       {
@@ -141,8 +169,8 @@ exports.orderDashboard = async (req, res) => {
       "orders",
       ((message = ""),
       (mm = mostOrderedProducts),
-      (orderByTime = temp),
-      (items = orders),
+      (orderByTime = orderBy),
+      (items = orders.reverse()),
       (pageName = {
         pageName: "Orders",
       }))
