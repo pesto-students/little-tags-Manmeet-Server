@@ -17,7 +17,7 @@
               <div class="rounded-md p-6 bg-white shadow">
                 <div class="mb-2 pb-2">
                   <h3 class="font-semibold text-lg text-gray-600">Most Ordered product</h3>
-                  <p class="text-sm text-gray-500">Profit Share between customers</p>
+                  <p class="text-sm text-gray-500 capitalize">Top 5 most ordered product</p>
                 </div>
                 <div id="chartdiv" class="w-full" style="height: 240px"></div>
               </div>
@@ -25,8 +25,8 @@
             <div class="w-1/2 ml-4">
               <div class="rounded-md p-6 bg-white shadow">
                 <div class="mb-2 pb-2">
-                  <h3 class="font-semibold text-lg text-gray-600">Total Revenue</h3>
-                  <p class="text-sm text-gray-500">Profit Share between customers</p>
+                  <h3 class="font-semibold text-lg text-gray-600">Order by Time</h3>
+                  <p class="text-sm text-gray-500">Order by Day/ Month/ Year</p>
                 </div>
                 <div id="chartdiv2" class="w-full" style="height: 240px"></div>
               </div>
@@ -42,6 +42,8 @@
 
       <script>
         var mostOrderd = '<%- JSON.stringify(mm) %>'
+        var orderByTime = '<%- JSON.stringify(orderByTime) %>'
+
         function bar_chart(selector, data) {
           // Themes begin
           // Themes end
@@ -99,7 +101,7 @@
           chart.innerRadius = am4core.percent(20);
 
           // Set number format
-          chart.numberFormatter.numberFormat = "#.#'%'";
+          chart.numberFormatter.numberFormat = "#.#";
 
           // Create axes
           var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
@@ -116,7 +118,7 @@
           var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
           valueAxis.renderer.grid.template.strokeOpacity = 0;
           valueAxis.min = 0;
-          valueAxis.max = 100;
+          valueAxis.max = orderByTime[0].full;
           valueAxis.strictMinMax = true;
 
           // Create series
@@ -149,22 +151,11 @@
         am4core.ready(function () {
           bar_chart("chartdiv", JSON.parse(mostOrderd));
 
-          radar_chart("chartdiv2", [{
-            "category": "Daily",
-            "value": 4,
-            "full": 100
-          }, {
-            "category": "Monthly",
-            "value": 10,
-            "full": 100
-          }, {
-              "category": "Yearly",
-              "value": 16,
-              "full": 100
-            }]);
+          radar_chart("chartdiv2", JSON.parse(orderByTime));
         }); // end am4core.ready()
       </script>
       <div class="w-full overflow-hidden rounded-lg shadow-xs">
+        <span class="text-lg font-semibold">Recent Orders</span>
         <div class="w-full overflow-x-auto">
           <table class="w-full whitespace-no-wrap">
             <thead>
@@ -178,7 +169,8 @@
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
               <% for(var i=0; i<items.length; i++) {%>
-              <tr class="text-gray-700 dark:text-gray-400">
+              <tr onclick="window.location.href='/orders/orderSummery/<%= items[i]._id %>'"
+                class="text-gray-700 dark:text-gray-400 hover:bg-indigo-400 hover:text-white cursor-pointer">
                 <td class="px-4 py-3">
                   <div class="flex items-center text-sm">
                     <p class="font-semibold">
@@ -186,7 +178,7 @@
                     </p>
                   </div>
                 </td>
-                <td class="px-4 py-3 text-sm"><%= items[i].orderDate %></td>
+                <td class="px-4 py-3 text-sm"><%= items[i].orderDate.slice(0,10) %></td>
                 <% var orderCost = 0 %>
                 <% for (var j =0; j < items[i].orderItems.length;  j++ ) { %>
                 <% orderCost += items[i].orderItems[j].netPrice *items[i].orderItems[j].quantity%>

@@ -1,0 +1,78 @@
+<body>
+    <div class="flex flex-col flex-1 w-full">
+        <main class="h-full overflow-y-auto">
+            <div class="container px-6 mx-auto grid">
+                <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                    Order Summery
+                </h2>
+                <div class="flex bg-white mt-4 px-4 py-6">
+                    <% if (orderSummery.orderItems) { %>
+                    <div class="flex flex-col space-y-2">
+                        <div class="flex flex-row justify-between items-center">
+                            <div class="text-lg font-semibold">Ordered Date -
+                                <span class="text-md font-normal"><%= orderSummery.orderDate.slice(0,10) %></span>
+                            </div>
+                            <div class="text-lg font-semibold capitalize">order status -
+                                <span class="text-md font-normal">Shipped</span>
+                            </div>
+                        </div>
+                        <div class="text-lg font-semibold capitalize">ordered by -
+                            <a href="#" class="underline text-md font-normal"><%= orderSummery._userId %></a>
+                        </div>
+                        <div class="w-full flex flex-col space-y-2 shadow-sm rounded-md px-2 py-4">
+                            <% for (var i =0; i < orderSummery.orderItems.length;  i++ ) { %>
+                            <div class="flex flex-col space-y-2 shadow-md rounded-md px-2 py-4">
+                                <section class="text-gray-600 body-font">
+                                    <div class="container mx-auto flex px-5 py-2 md:flex-row flex-col items-center">
+                                        <div class="w-1/12 mb-2">
+                                            <img class="object-cover object-center rounded" alt="hero"
+                                                onerror="this.onerror=null;this.src='https://dummyimage.com/720x600';"
+                                                src="<%= orderSummery.orderItems[i].image %>">
+                                        </div>
+                                        <div
+                                            class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+                                            <h1 class="title-font text-xl font-medium text-gray-900">
+                                                <%= orderSummery.orderItems[i].name %>
+                                            </h1>
+                                            <p class="leading-relaxed">Quantity -
+                                                <%= orderSummery.orderItems[i].quantity %>
+                                                <p class="leading-relaxed">
+                                                    Net Price -$<%= orderSummery.orderItems[i].netPrice %>
+                                                </p>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                            <% } %>
+                        </div>
+                        <div class="text-lg font-semibold capitalize">shipping price -
+                            <span class="text-md font-normal"><%= orderSummery.shippingPrice %></span>
+                        </div>
+                        <% var orderCost = 0 %>
+                        <% for (var i =0; i < orderSummery.orderItems.length;  i++ ) { %>
+                        <% orderCost += orderSummery.orderItems[i].netPrice *orderSummery.orderItems[i].quantity%>
+                        <% } %>
+                        <% orderCost += orderSummery.shippingPrice %>
+
+                        <div class="text-lg font-semibold capitalize">total amount -
+                            <span class="text-md font-normal">
+                                $ <%= orderCost.toFixed(2) %>
+                            </span>
+                        </div>
+                        <div class="text-lg font-semibold capitalize">Shipping address -
+                            <span class="text-md font-normal"><%= orderSummery.shippingAddress.address %></span>
+                            <span class="text-md font-normal"><%= orderSummery.shippingAddress.city %></span>
+                            <span class="text-md font-normal"><%= orderSummery.shippingAddress.postalCode %></span>
+                            <span class="text-md font-normal"><%= orderSummery.shippingAddress.country %></span>
+                        </div>
+                        <div class="text-lg font-semibold capitalize">payment method -
+                            <span class="text-md font-normal"><%= orderSummery.paymentMethod %></span>
+                        </div>
+                    </div>
+
+                    <% } %>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>

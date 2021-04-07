@@ -63,6 +63,29 @@ exports.getOrders = async (req, res) => {
   }
 };
 
+// get order summery
+exports.getOrderSummery = async (req, res) => {
+  try {
+    const orderSummery = await Order.findById(req.params.id);
+    if (!orderSummery) {
+      return res
+        .status(404)
+        .json({ status: false, full_messages: "No data found" });
+    }
+    const isAdminRights = await checkAdminRights(req.user);
+    if (!isAdminRights) {
+      return res.status(401).json({
+        status: false,
+        full_messages: "Access denied: Need Admin rights",
+      });
+    }
+    res.status(202).json(orderSummery);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ status: false, full_messages: "Server Error" });
+  }
+};
+
 const compare = (a, b) => {
   if (a.total < b.total) {
     return 1;
