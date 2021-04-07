@@ -21,6 +21,13 @@ router.post("/", auth, orderController.addOrderItems);
 router.get("/", auth, orderController.getOrders);
 
 /**
+ * @route   GET api/v1/orders/orderSummery
+ * @desc    Get order summery of selected order id
+ * @access  Private
+ */
+router.get("/orderSummery/:id", auth, orderController.getOrderSummery);
+
+/**
  * @route   GET api/v1/orders/myOrders
  * @desc    Get all orders to specific user
  * @access  Private
