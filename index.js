@@ -78,27 +78,42 @@ const trunkDescription = (products) => {
   return products;
 };
 /* Home Page */
+const getAllOrders = async (token) => {
+  try {
+    const productURI = URL + "api/v1/orders";
+    return await fetch(`${productURI}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    })
+      .then((r) => r.json())
+      .then((res) => {
+        return res;
+      });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ status: false, full_messages: "Server Error" });
+  }
+};
 app.get("/", async (req, res) => {
   try {
     const authURI = URL + "api/v1/auth";
     // check login auth for token
     const { token } = req.cookies;
     if (token) {
-      const dataResponse = await fetch(`${authURI}`, {
+      await fetch(`${authURI}`, {
         headers: {
           "Content-Type": "application/json",
           authorization: token,
         },
       });
-      const value = await dataResponse.json();
-
-      let products = await getProductData(token);
-      products = trunkDescription(products);
+      const orders = await getAllOrders(token);
       // let WelcomeMessage = "";
       res.render(
         "dashboard",
         ((message = "Welcome to shopKart"),
-        (items = products),
+        (items = orders),
         (pageName = {
           pageName: "Dashboard",
         }))
