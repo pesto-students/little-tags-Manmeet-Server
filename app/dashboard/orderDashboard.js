@@ -3,6 +3,7 @@ const config = require("config");
 const { orderUsersByYearly } = require("../controllers/orderController");
 const { compareSync } = require("bcrypt");
 const URL = process.env.URL || config.get("URL");
+// const URL = "https://shopkart-backend.herokuapp.com/";
 const getAllOrders = async (token) => {
   try {
     const productURI = URL + "api/v1/orders";
@@ -100,7 +101,7 @@ const orderUsersByYear = async (token) => {
 
 exports.orderSummery = async (req, res) => {
   try {
-    const { token } = req.cookies;
+    const { token } = "req.cookies;";
     const productURI = URL + "api/v1/orders/orderSummery/" + req.params.id;
     const result = await fetch(`${productURI}`, {
       headers: {
@@ -165,10 +166,16 @@ exports.orderDashboard = async (req, res) => {
         full: full,
       },
     ];
+
+    var result = mostOrderedProducts.map((person) => ({
+      _id: person._id.replace("'", "").substring(0, 15),
+      total: person.total,
+    }));
+    console.log(result);
     res.render(
       "orders",
       ((message = ""),
-      (mm = mostOrderedProducts),
+      (mm = result),
       (orderByTime = orderBy),
       (items = orders.reverse()),
       (pageName = {
