@@ -101,7 +101,7 @@ const orderUsersByYear = async (token) => {
 
 exports.orderSummery = async (req, res) => {
   try {
-    const { token } = "req.cookies;";
+    const { token } = req.cookies;
     const productURI = URL + "api/v1/orders/orderSummery/" + req.params.id;
     const result = await fetch(`${productURI}`, {
       headers: {
@@ -113,6 +113,7 @@ exports.orderSummery = async (req, res) => {
       .then((res) => {
         return res;
       });
+    console.log(result);
     res.render(
       "orderSummery",
       ((message = ""),
