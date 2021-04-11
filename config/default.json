@@ -3,5 +3,7 @@
   "MONGODB_URI": "mongodb://localhost:27017/shopKart",
   "SALT_ROUND": 13,
   "SECRET_KEY": "lT5WkCYj6F,fPEtcn-3jKnF{es^1UHeCAMP.shtR8/0kf",
-  "URL": "http://localhost:4000/"
+  "URL": "http://localhost:4000/",
+  "RAZORPAY_SECRET": "JVtYa3h3TDR7p7baNrDj6p4H",
+  "RAZORPAY_KEY_ID": "rzp_test_fUqiLDsBaH0KAr"
 }
