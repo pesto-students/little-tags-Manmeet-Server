@@ -7,6 +7,13 @@ const createError = require("http-errors");
 const path = require("path");
 const cors = require("cors");
 const fetch = require("node-fetch");
+const shortid = require("shortid");
+const Razorpay = require("razorpay");
+
+const razorpay = new Razorpay({
+  key_id: config.get("RAZORPAY_KEY_ID"),
+  key_secret: config.get("RAZORPAY_SECRET"),
+});
 /* Start DB Connection */
 require("./app/DB/mongoDB.config");
 /* Routes */
@@ -325,6 +332,31 @@ app.get("/productUpdate/:id", async (req, res) => {
 // orders
 app.get("/orders", orderDashboard.orderDashboard);
 app.get("/orders/orderSummery/:id", orderDashboard.orderSummery);
+
+// razorpay
+app.post("/razorpay", async (req, res) => {
+  const payment_capture = 1;
+  const amount = req.body.totalPrice;
+  const currency = "INR";
+
+  const options = {
+    amount: amount * 100,
+    currency,
+    receipt: shortid.generate(),
+    payment_capture,
+  };
+
+  try {
+    const response = await razorpay.orders.create(options);
+    res.json({
+      id: response.id,
+      currency: response.currency,
+      amount: response.amount,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
