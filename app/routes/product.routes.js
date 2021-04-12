@@ -11,7 +11,7 @@ const auth = require("../middleWare/auth");
  * @desc    get all product for the admin and list corresponding product for the specific user(Normal)
  * @access  Private
  */
-router.get("/", auth, ProductController.getProducts);
+router.get("/", ProductController.getProducts);
 
 /**
  * @route   GET request with (api/v1/products/:id)

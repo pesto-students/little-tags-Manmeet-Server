@@ -5,7 +5,7 @@ const { checkAdminRights } = require("../utils/utils");
 // get all products detail
 exports.getProducts = async (req, res) => {
   try {
-    const isAdminRights = await checkAdminRights(req.user);
+    // const isAdminRights = await checkAdminRights(req.user);
     const products = await Product.find();
     if (!products) {
       return res
@@ -13,12 +13,12 @@ exports.getProducts = async (req, res) => {
         .json({ status: false, full_messages: "No data found" });
     }
 
-    if (!isAdminRights) {
-      const currentUserProducts = products.filter(
-        (product) => product._userId == req.user._id
-      );
-      return res.status(206).json(currentUserProducts);
-    }
+    // if (!isAdminRights) {
+    //   const currentUserProducts = products.filter(
+    //     (product) => product._userId == req.user._id
+    //   );
+    //   return res.status(206).json(currentUserProducts);
+    // }
     res.status(200).json(products);
   } catch (err) {
     console.error(err.message);
