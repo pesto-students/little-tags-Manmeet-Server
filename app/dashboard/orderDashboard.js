@@ -166,7 +166,6 @@ exports.orderDashboard = async (req, res) => {
         full: full,
       },
     ];
-
     let result = mostOrderedProducts.map((person) => ({
       _id: person._id.replace("'", "").substring(0, 15),
       total: person.total,
