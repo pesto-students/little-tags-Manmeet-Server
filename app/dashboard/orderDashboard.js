@@ -131,7 +131,6 @@ exports.orderSummery = async (req, res) => {
 exports.orderDashboard = async (req, res) => {
   try {
     const { token } = req.cookies;
-    console.log(token);
     const orders = await getAllOrders(token);
     let mostOrderedProducts = await mostOrdered(token);
     let orderUsers_Day = await orderUsersByDay(token);
@@ -172,7 +171,6 @@ exports.orderDashboard = async (req, res) => {
       _id: person._id.replace("'", "").substring(0, 15),
       total: person.total,
     }));
-    console.log(result);
     res.render(
       "orders",
       ((message = ""),
