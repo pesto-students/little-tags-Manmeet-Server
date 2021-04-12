@@ -167,10 +167,11 @@ exports.orderDashboard = async (req, res) => {
       },
     ];
 
-    const result = mostOrderedProducts.map((person) => ({
+    let result = mostOrderedProducts.map((person) => ({
       _id: person._id.replace("'", "").substring(0, 15),
       total: person.total,
     }));
+    result = result.slice(0, 5);
     res.render(
       "orders",
       ((message = ""),
