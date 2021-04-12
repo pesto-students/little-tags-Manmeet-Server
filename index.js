@@ -78,8 +78,8 @@ const getProductData = async (token) => {
 const trunkDescription = (products) => {
   products.forEach((product) => {
     product.description =
-      product.description.length > 80
-        ? product.description.substr(0, 81).concat("...")
+      product.description.length > 30
+        ? product.description.substr(0, 31).concat("...")
         : product.description;
   });
   return products;
@@ -120,7 +120,7 @@ app.get("/", async (req, res) => {
       res.render(
         "dashboard",
         ((message = "Welcome to shopKart"),
-        (items = orders),
+        (items = orders.reverse()),
         (pageName = {
           pageName: "Dashboard",
         }))
@@ -183,7 +183,7 @@ app.get("/product", async (req, res) => {
   try {
     const { token } = req.cookies;
     let products = await getProductData(token);
-    products = trunkDescription(products);
+    // products = trunkDescription(products);
     res.render(
       "product",
       ((message = ""),
@@ -216,7 +216,7 @@ app.post("/product", async (req, res) => {
       .then((r) => r.json())
       .then(async (result) => {
         let products = await getProductData(token);
-        products = trunkDescription(products);
+        // products = trunkDescription(products);
         res.render(
           "product",
           ((message = result.full_messages),
@@ -281,7 +281,7 @@ app.delete("/product/:id", async (req, res) => {
       .then((r) => r.json())
       .then(async (result) => {
         let products = await getProductData(token);
-        products = trunkDescription(products);
+        // products = trunkDescription(products);
         res.render(
           "product",
           ((message = result.full_messages),
