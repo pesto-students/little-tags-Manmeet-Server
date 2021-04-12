@@ -23,17 +23,17 @@
                             <thead>
                                 <tr
                                     class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
-                                    <th class="px-4 py-3">Category</th>
-                                    <th class="px-4 py-3">Title</th>
-                                    <th class="px-4 py-3">Price</th>
-                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3 w-1/5">Category</th>
+                                    <th class="px-4 py-3 w-1/6">Title</th>
+                                    <th class="px-4 py-3 w-1/6">Price</th>
+                                    <th class="px-4 py-3 w-1/4">Description</th>
                                     <th class="px-4 py-3 text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                                 <% for(var i=0; i<items.length; i++) {%>
                                 <tr class="text-gray-700 dark:text-gray-400">
-                                    <td class="px-4 py-3">
+                                    <td class="px-4 py-3 w-1/5">
                                         <div class="flex items-center text-sm">
                                             <!-- Avatar with inset shadow -->
                                             <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
@@ -51,13 +51,13 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3 text-sm"><%= items[i].title %></td>
-                                    <td class="px-4 py-3 text-xs">
+                                    <td class="px-4 py-3 text-xs w-1/6">
                                         <span
                                             class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
                                             $ <%= items[i].price %>
                                         </span>
                                     </td>
-                                    <td class="px-4 py-3 text-sm truncate"><%= items[i].description %></td>
+                                    <td class="px-4 py-3 text-sm w-1/2"><%= items[i].description %></td>
                                     <td class="px-4 py-3 text-sm">
                                         <div class="flex flex-row space-x-2 items-center justify-center">
                                             <form method="get" action="/productUpdate/<%= items[i]._id %>?_method=GET">

@@ -73,7 +73,13 @@
                                 Account balance
                             </p>
                             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                $ 46,760.89
+                                <% var orderCost = 0 %>
+                                <% for(var i=0; i < Math.min(6, items.length); i++) {%>
+                                <% for (var j =0; j < items[i].orderItems.length;  j++ ) { %>
+                                <% orderCost += items[i].orderItems[j].netPrice *items[i].orderItems[j].quantity%>
+                                <% } %>
+                                <% } %>
+                                $ <%= orderCost.toFixed(2) %>
                             </p>
                         </div>
                     </div>
@@ -92,7 +98,7 @@
                                 New sales
                             </p>
                             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                376
+                                <%= items.length %>
                             </p>
                         </div>
                     </div>
@@ -111,7 +117,7 @@
                                 Pending order
                             </p>
                             <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                                35
+                                0
                             </p>
                         </div>
                     </div>
