@@ -49,13 +49,13 @@ exports.getOrders = async (req, res) => {
         .status(404)
         .json({ status: false, full_messages: "No data found" });
     }
-    const isAdminRights = await checkAdminRights(req.user);
-    if (!isAdminRights) {
-      return res.status(401).json({
-        status: false,
-        full_messages: "Access denied: Need Admin rights",
-      });
-    }
+    // const isAdminRights = await checkAdminRights(req.user);
+    // if (!isAdminRights) {
+    //   return res.status(401).json({
+    //     status: false,
+    //     full_messages: "Access denied: Need Admin rights",
+    //   });
+    // }
     res.status(202).json(orders);
   } catch (err) {
     console.error(err.message);
@@ -72,13 +72,13 @@ exports.getOrderSummery = async (req, res) => {
         .status(404)
         .json({ status: false, full_messages: "No data found" });
     }
-    const isAdminRights = await checkAdminRights(req.user);
-    if (!isAdminRights) {
-      return res.status(401).json({
-        status: false,
-        full_messages: "Access denied: Need Admin rights",
-      });
-    }
+    // const isAdminRights = await checkAdminRights(req.user);
+    // if (!isAdminRights) {
+    //   return res.status(401).json({
+    //     status: false,
+    //     full_messages: "Access denied: Need Admin rights",
+    //   });
+    // }
     res.status(202).json(orderSummery);
   } catch (err) {
     console.error(err.message);
@@ -121,13 +121,13 @@ exports.mostOrdered = async (req, res) => {
       mostOrders = [...mostOrders, order];
     }
     mostOrders.sort(compare);
-    const isAdminRights = await checkAdminRights(req.user);
-    if (!isAdminRights) {
-      return res.status(401).json({
-        status: false,
-        full_messages: "Access denied: Need Admin rights",
-      });
-    }
+    // const isAdminRights = await checkAdminRights(req.user);
+    // if (!isAdminRights) {
+    //   return res.status(401).json({
+    //     status: false,
+    //     full_messages: "Access denied: Need Admin rights",
+    //   });
+    // }
 
     res.status(202).json(mostOrders);
   } catch (err) {
