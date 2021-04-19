@@ -358,6 +358,56 @@ app.post("/razorpay", async (req, res) => {
   }
 });
 
+// create account
+app.get("/createAccount", async (req, res) => {
+  try {
+    res.render(
+      "createAccount",
+      ((message = ""),
+      (pageName = {
+        pageName: "",
+      }))
+    );
+  } catch (error) {
+    console.error(error.message);
+    res.render("login", { layout: "./layouts/loginLayout" });
+  }
+});
+app.post("/createAccount", async (req, res) => {
+  try {
+    console.log(req.body);
+    const registerURI = URL + "api/v1/users";
+    const { token } = req.cookies;
+    await fetch(`${registerURI}`, {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+      body: JSON.stringify(req.body),
+    })
+      .then((r) => r.json())
+      .then((result) => {
+        let tempMessage = "";
+        if (result.token) {
+          tempMessage = "account created";
+        } else {
+          tempMessage = result.full_messages;
+        }
+        res.render(
+          "createAccount",
+          ((message = tempMessage),
+          (pageName = {
+            pageName: "",
+          }))
+        );
+      })
+      .catch((e) => console.error(e.message));
+  } catch (error) {
+    console.error(error.message);
+    res.render("login", { layout: "./layouts/loginLayout" });
+  }
+});
 app.listen(port, () => console.log(`Listening on port ${port}...`));
 
 module.exports = app;
