@@ -1,7 +1,26 @@
-# bare-bones template
+# Shopkart admin 
+https://shopkart-backend.herokuapp.com/
 
-This is a barebones repository. Please contact the instructor on how to proceed ahead. You should replace this page with more instructions once you've finalised what to do.
+**email** test@shopkart.com
+
+**password** test1234
 
 # Schema Link
 
 https://app.sqldbm.com/MySQL/Edit/p158493/#
+
+# Features
+- **Product**
+  - Add product
+  - Update product
+  - Delete product
+  - View product detail
+ 
+- **Order**
+   - See top five most ordered product
+   - see order by (daily/ monthly/ yearly)
+   - see all order
+   - see order detail
+ 
+ - **Create ccount**
+   - admin only can create normal/admin account
