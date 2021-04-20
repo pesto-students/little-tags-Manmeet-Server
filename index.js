@@ -361,13 +361,38 @@ app.post("/razorpay", async (req, res) => {
 // create account
 app.get("/createAccount", async (req, res) => {
   try {
-    res.render(
-      "createAccount",
-      ((message = ""),
-      (pageName = {
-        pageName: "",
-      }))
-    );
+    const authURI = URL + "api/v1/auth";
+    const { token } = req.cookies;
+    const authResult = await fetch(`${authURI}`, {
+      headers: {
+        "Content-Type": "application/json",
+        authorization: token,
+      },
+    });
+    authResult
+      .json()
+      .then(async (result) => {
+        if (result.role === "Normal") {
+          const orders = await getAllOrders(token);
+          res.render(
+            "dashboard",
+            ((message = "Need admin right for create account"),
+            (items = orders.reverse()),
+            (pageName = {
+              pageName: "Dashboard",
+            }))
+          );
+        } else {
+          res.render(
+            "createAccount",
+            ((message = ""),
+            (pageName = {
+              pageName: "",
+            }))
+          );
+        }
+      })
+      .catch((err) => {});
   } catch (error) {
     console.error(error.message);
     res.render("login", { layout: "./layouts/loginLayout" });
@@ -375,7 +400,6 @@ app.get("/createAccount", async (req, res) => {
 });
 app.post("/createAccount", async (req, res) => {
   try {
-    console.log(req.body);
     const registerURI = URL + "api/v1/users";
     const { token } = req.cookies;
     await fetch(`${registerURI}`, {
