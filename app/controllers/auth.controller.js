@@ -48,11 +48,12 @@ exports.auth = async (req, res) => {
       phoneNumber,
       isGuest,
       isThirdPartyAuth,
+      role,
       dateCreated,
     } = user;
     res
       .status(201)
-      .json({ userName, email, phoneNumber, isGuest, isThirdPartyAuth });
+      .json({ userName, email, phoneNumber, isGuest, isThirdPartyAuth, role });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");

@@ -29,6 +29,13 @@ exports.getProducts = async (req, res) => {
 // add a new product
 exports.addProduct = async (req, res) => {
   try {
+    const isAdminRights = await checkAdminRights(req.user);
+    if (!isAdminRights) {
+      return res.status(401).json({
+        status: false,
+        full_messages: "Access denied: Need Admin rights",
+      });
+    }
     const {
       title,
       price,
